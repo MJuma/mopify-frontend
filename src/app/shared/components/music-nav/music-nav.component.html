@@ -1,0 +1,21 @@
+<table class="table table-compact">
+    <thead>
+    <tr>
+        <th class="left" colspan="5">Now Playing</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr>
+        <th class="left" colspan="3">Title</th>
+        <th class="left" colspan="3">Artist</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let tlTrack of tlTracks$ | async">
+        <td class="left" colspan="3">{{tlTrack.track.name}}</td>
+        <td class="left" colspan="3">{{tlTrack.track.artists[0].name}}</td>
+        <td class="right"><clr-icon shape="times"></clr-icon></td>
+    </tr>
+    </tbody>
+</table>

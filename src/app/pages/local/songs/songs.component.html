@@ -1,15 +1,49 @@
-<clr-datagrid>
-    <clr-dg-column>User ID</clr-dg-column>
-    <clr-dg-column>Name</clr-dg-column>
-    <clr-dg-column>Creation date</clr-dg-column>
-    <clr-dg-column>Favorite color</clr-dg-column>
+<div class="music-browser">
+    <table class="table">
+        <thead>
+        <tr>
+            <th class="left">Artists</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let artist of artists$ | async" class="selectable" (click)="getAlbums(artist.uri)">
+            <td class="left">{{artist.name}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="table">
+        <thead>
+        <tr>
+            <th class="left">Albums</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let album of albums$ | async" class="selectable" (click)="getTracks(album.uri)">
+            <td class="left">{{album.name}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
-    <clr-dg-row *ngFor="let user of songs">
-        <clr-dg-cell>{{user.id}}</clr-dg-cell>
-        <clr-dg-cell>{{user.name}}</clr-dg-cell>
-        <clr-dg-cell>{{user.creation | date}}</clr-dg-cell>
-        <clr-dg-cell>{{user.color}}</clr-dg-cell>
+<div class="btn-group btn-outline-primary btn-sm">
+    <button class="btn">Add</button>
+    <button class="btn">Edit</button>
+    <button class="btn">Download</button>
+    <button class="btn">Delete</button>
+</div>
+
+<clr-datagrid>
+    <clr-dg-column>Track #</clr-dg-column>
+    <clr-dg-column>Song</clr-dg-column>
+    <clr-dg-column>Genre</clr-dg-column>
+    <clr-dg-column>Year</clr-dg-column>
+
+    <clr-dg-row *ngFor="let track of (tracks$ | async)" (click)="playTrack(track.uri)">
+        <clr-dg-cell>{{track.track_no}}</clr-dg-cell>
+        <clr-dg-cell>{{track.name}}</clr-dg-cell>
+        <clr-dg-cell>{{track.genre}}</clr-dg-cell>
+        <clr-dg-cell>{{track.date}}</clr-dg-cell>
     </clr-dg-row>
 
-    <clr-dg-footer>{{songs.length}} users</clr-dg-footer>
+    <clr-dg-footer>{{(tracks$ | async).length}} songs</clr-dg-footer>
 </clr-datagrid>

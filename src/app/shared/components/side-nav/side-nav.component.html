@@ -1,0 +1,31 @@
+<a clrVerticalNavLink routerLink="/" routerLinkActive="active">
+    <clr-icon clrVerticalNavIcon shape="home"></clr-icon>
+    Home
+</a>
+<clr-vertical-nav-group>
+    <clr-icon shape="library" clrVerticalNavIcon></clr-icon>
+    Local
+    <clr-vertical-nav-group-children>
+        <a clrVerticalNavLink routerLink="/local/songs">Songs</a>
+        <a clrVerticalNavLink routerLink="/local">Albums</a>
+        <a clrVerticalNavLink routerLink="/">Artists</a>
+        <a clrVerticalNavLink routerLink="/">Playlists</a>
+    </clr-vertical-nav-group-children>
+</clr-vertical-nav-group>
+<clr-vertical-nav-group>
+    <img clrVerticalNavIcon src="assets/spotify.svg">
+    Spotify
+    <clr-vertical-nav-group-children>
+        <a clrVerticalNavLink routerLink="/">Home</a>
+        <a clrVerticalNavLink routerLink="/">Browse</a>
+        <a clrVerticalNavLink routerLink="/">Playlists</a>
+        <a clrVerticalNavLink routerLink="/">Discover</a>
+        <a clrVerticalNavLink routerLink="/">Radio</a>
+        <a clrVerticalNavLink routerLink="/">Stations</a>
+    </clr-vertical-nav-group-children>
+</clr-vertical-nav-group>
+<div class="nav-divider"></div>
+<a clrVerticalNavLink routerLink="/">
+    <clr-icon clrVerticalNavIcon shape="cog"></clr-icon>
+    Settings
+</a>

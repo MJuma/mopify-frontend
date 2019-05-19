@@ -1,0 +1,22 @@
+table {
+    margin-top: 0;
+
+    tbody {
+        display: block;
+        max-height: 300px;
+        overflow: auto;
+    }
+    thead, tbody tr {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    .selectable {
+        cursor: pointer;
+
+        :hover {
+            background-color: #DDDDDD;
+        }
+    }
+}

@@ -1,57 +1,27 @@
 <div class="main-container">
     <header class="header-6">
-        <div class="branding">
-            <div class="nav-link">
-                <clr-icon shape="music-note" class="is-solid"></clr-icon>
-                <span class="title">Music</span>
-            </div>
-        </div>
-        <div class="header-nav">
-            <!--<a href="..." class="active nav-link"><span class="nav-text">Dashboard</span></a>
-            <a href="..." class="nav-link"><span class="nav-text">Interactive Analytics</span></a>-->
-        </div>
-        <div class="header-actions">
-            <!--<a href="..." class="nav-link nav-icon">
-                <clr-icon shape="cog"></clr-icon>
-            </a>-->
-        </div>
+        <app-header></app-header>
     </header>
-    <div class="content-container">
-        <div class="content-area">
-            <router-outlet></router-outlet>
-        </div>
+    <main class="content-container">
+        <section>
+            <article class="content-area">
+                <router-outlet></router-outlet>
+            </article>
+            <article class="player">
+                <div class="controls">
+                    <clr-icon shape="shuffle" size="32"></clr-icon>
+                    <clr-icon shape="step-forward" size="32" flip="horizontal"></clr-icon>
+                    <clr-icon shape="play" size="48"></clr-icon>
+                    <clr-icon shape="step-forward" size="32"></clr-icon>
+                    <clr-icon shape="replay-all" size="32"></clr-icon>
+                </div>
+            </article>
+        </section>
         <clr-vertical-nav class="nav-trigger--bottom" [clrVerticalNavCollapsible]="true">
-            <a clrVerticalNavLink routerLink="/" routerLinkActive="active">
-                <clr-icon clrVerticalNavIcon shape="home"></clr-icon>
-                Home
-            </a>
-            <clr-vertical-nav-group>
-                <clr-icon shape="library" clrVerticalNavIcon></clr-icon>
-                Local
-                <clr-vertical-nav-group-children>
-                    <a clrVerticalNavLink routerLink="/local/songs">Songs</a>
-                    <a clrVerticalNavLink routerLink="/local">Albums</a>
-                    <a clrVerticalNavLink routerLink="/">Artists</a>
-                    <a clrVerticalNavLink routerLink="/">Playlists</a>
-                </clr-vertical-nav-group-children>
-            </clr-vertical-nav-group>
-            <clr-vertical-nav-group>
-                <img clrVerticalNavIcon src="assets/spotify.svg">
-                Spotify
-                <clr-vertical-nav-group-children>
-                    <a clrVerticalNavLink routerLink="/">Home</a>
-                    <a clrVerticalNavLink routerLink="/">Browse</a>
-                    <a clrVerticalNavLink routerLink="/">Playlists</a>
-                    <a clrVerticalNavLink routerLink="/">Discover</a>
-                    <a clrVerticalNavLink routerLink="/">Radio</a>
-                    <a clrVerticalNavLink routerLink="/">Stations</a>
-                </clr-vertical-nav-group-children>
-            </clr-vertical-nav-group>
-            <div class="nav-divider"></div>
-            <a clrVerticalNavLink routerLink="/">
-                <clr-icon clrVerticalNavIcon shape="cog"></clr-icon>
-                Settings
-            </a>
+            <app-side-nav></app-side-nav>
         </clr-vertical-nav>
-    </div>
+        <clr-vertical-nav class="nav-trigger--bottom music-nav">
+            <app-music-nav></app-music-nav>
+        </clr-vertical-nav>
+    </main>
 </div>

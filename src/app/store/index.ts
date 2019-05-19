@@ -1,24 +1,33 @@
-import { ActionReducerMap, ActionReducer } from '@ngrx/aa';
-import { storeLogger } from 'ngrx-aa-logger';
-import { storeFreeze } from 'ngrx-aa-freeze';
+import { routerReducer } from '@ngrx/router-store';
+import { ActionReducerMap, ActionReducer, MetaReducer, Action } from '@ngrx/store';
+import { storeLogger } from 'ngrx-store-logger';
+import { storeFreeze } from 'ngrx-store-freeze';
 
 import { environment } from 'src/environments/environment';
-import { routerReducer } from '@ngrx/router-aa';
+import { MopidyActionsUnion } from './actions/mopidy.actions';
+import { TracklistActionsUnion } from './actions/tracklist.actions';
+import { initialMopidyState, mopidyReducer } from './reducers/mopidy.reducer';
+import { initialTracklistState, tracklistReducer } from './reducers/tracklist.reducer';
 import { ApplicationState } from './state/application.state';
-import { initialWorkItemsState, workItemsReducer } from 'src/app/aa/reducers/work-items.reducer';
 
 export const initialApplicationState: Readonly<ApplicationState> = {
     router: undefined,
-    workItems: initialWorkItemsState,
+    mopidy: initialMopidyState,
+    tracklist: initialTracklistState,
 };
 
-export const reducers: ActionReducerMap<ApplicationState> = {
+export type ApplicationActionsIntersection =
+    MopidyActionsUnion
+    & TracklistActionsUnion;
+
+export const reducers: ActionReducerMap<ApplicationState, ApplicationActionsIntersection> = {
     router: routerReducer,
-    workItems: workItemsReducer,
+    mopidy: mopidyReducer,
+    tracklist: tracklistReducer,
 };
 
 export function logger(reducer: ActionReducer<unknown>) {
     return storeLogger()(reducer);
 }
 
-export const metaReducers = environment.production ? [logger] : [storeFreeze, logger];
+export const metaReducers: MetaReducer<ApplicationState | unknown, Action>[] = environment.production ? [logger] : [storeFreeze, logger];
