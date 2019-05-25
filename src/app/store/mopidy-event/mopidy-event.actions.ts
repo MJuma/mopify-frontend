@@ -20,6 +20,8 @@ export enum MopidyEventActionTypes {
     VOLUME_CHANGED = '[Mopidy Event] Event: Volume Changed',
 }
 
+export const STATE_ONLINE = '[Mopidy Event] State: Online';
+
 export class StateOnline implements Action {
     readonly type = MopidyEventActionTypes.STATE_ONLINE;
 }

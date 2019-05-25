@@ -16,6 +16,11 @@ export type SearchField =
     | 'comment'
     | 'any';
 export type PlaybackState = 'stopped' | 'playing' | 'paused';
+export enum PlaybackStates {
+    STOPPED = 'stopped',
+    PLAYING = 'playing',
+    PAUSED = 'paused',
+}
 
 export interface Ref {
     readonly name: string;
@@ -95,10 +100,6 @@ export interface MopidyTracklistAddParams {
     uris?: string[];
 }
 
-export interface MopidyTracklistRemoveParams {
-    // TODO FIXME
-}
-
 export interface MopidyTracklistMoveParams {
     start: number;
     end: number;
@@ -118,6 +119,19 @@ export interface MopidyTracklistIndexParams {
 export interface MopidyTracklistSliceParams {
     start: number;
     end: number;
+}
+
+export interface MopidyTracklistFilterParams {
+    tlid?: number[];
+    uri?: string[];
+}
+
+export interface MopidyTracklistGetTrackParams {
+    tl_track?: TlTrack;
+}
+
+export interface MopidyTracklistOptionsParams {
+    value: boolean;
 }
 
 export interface MopidyPlaybackPlayParams {
@@ -156,48 +170,78 @@ export interface MopidyGetImagesResponse {
     [uri: string]: Image;
 }
 
+export interface Tracklist {
+    // Manipulating
+    add(params: MopidyTracklistAddParams): Promise<TlTrack[]>;
+    remove(params: MopidyTracklistFilterParams): Promise<TlTrack[]>;
+    clear(): void;
+    move(params: MopidyTracklistMoveParams): void;
+    shuffle(params: MopidyTracklistShuffleParams): void;
+
+    // Current state
+    getTlTracks(): Promise<TlTrack[]>;
+    index(params: MopidyTracklistIndexParams): Promise<number>;
+    getVersion(): Promise<number>;
+    getLength(): Promise<number>;
+    getTracks(): Promise<Track[]>;
+    slice(params: MopidyTracklistSliceParams): Promise<TlTrack[]>;
+    filter(params: MopidyTracklistFilterParams): Promise<TlTrack[]>;
+
+    // Future state
+    getEotTlid(): Promise<number | undefined>;
+    getNextTlid(): Promise<number | undefined>;
+    getPreviousTlid(): Promise<number | undefined>;
+    eotTrack(params: MopidyTracklistGetTrackParams): Promise<TlTrack | undefined>;
+    nextTrack(params: MopidyTracklistGetTrackParams): Promise<TlTrack | undefined>;
+    previousTrack(params: MopidyTracklistGetTrackParams): Promise<TlTrack | undefined>;
+
+    // Options
+    getConsume(): Promise<boolean>;
+    setConsume(params: MopidyTracklistOptionsParams): void;
+    getRandom(): Promise<boolean>;
+    setRandom(params: MopidyTracklistOptionsParams): void;
+    getRepeat(): Promise<boolean>;
+    setRepeat(params: MopidyTracklistOptionsParams): void;
+    getSingle(): Promise<boolean>;
+    setSingle(params: MopidyTracklistOptionsParams): void;
+}
+
+export interface Playback {
+    // Playback control
+    play(params: MopidyPlaybackPlayParams): void;
+    next(): void;
+    previous(): void;
+    stop(): void;
+    pause(): void;
+    resume(): void;
+    seek(params: MopidyPlaybackSeekParams): Promise<boolean>;
+
+    // Current track
+    getCurrentTlTrack(): Promise<TlTrack | undefined>;
+    getCurrentTrack(): Promise<Track | undefined>;
+    getStreamTitle(): Promise<string | undefined>;
+    getTimePosition(): Promise<number | undefined>;
+
+    // Playback states
+    getState(): Promise<PlaybackState>;
+    setState(params: MopidyPlaybackSetStateParams): void;
+}
+
+export interface Library {
+    browse(params: MopidyLibraryBrowseRefreshParams): Promise<Ref[]>;
+    search(params: MopidyLibrarySearchParams): Promise<SearchResult[]>;
+    lookup(params: MopidyLibraryLookupParams): Promise<Track[]>;
+    refresh(params: MopidyLibraryBrowseRefreshParams): void;
+    getImages(params: MopidyLibraryGetImagesParams): Promise<MopidyGetImagesResponse>;
+}
+
 export interface IMopidy extends EventEmitter {
-    tracklist: {
-        add(params: MopidyTracklistAddParams): Promise<TlTrack[]>;
-        remove(params: {}): Promise<TlTrack[]>; // TODO FIXME
-        clear(): void;
-        move(params: MopidyTracklistMoveParams): void
-        shuffle(params: MopidyTracklistShuffleParams): void;
-        getTlTracks(): Promise<TlTrack[]>;
-        index(params: MopidyTracklistIndexParams): Promise<number>;
-        getVersion(): Promise<number>;
-        getLength(): Promise<number>;
-        getTracks(): Promise<Track[]>;
-        slice(params: MopidyTracklistSliceParams): Promise<TlTrack[]>;
-    };
-    playback: {
-        play(params: MopidyPlaybackPlayParams): void;
-        next(): void;
-        previous(): void;
-        stop(): void;
-        pause(): void;
-        resume(): void;
-        seek(params: MopidyPlaybackSeekParams): Promise<boolean>;
-        getCurrentTlTrack(): Promise<TlTrack | undefined>;
-        getCurrentTrack(): Promise<Track | undefined>;
-        getStreamTitle(): Promise<string | undefined>;
-        getTimePosition(): Promise<number | undefined>;
-        getState(): Promise<PlaybackState>;
-        setState(params: MopidyPlaybackSetStateParams): void;
-    };
-    library: {
-        browse(params: MopidyLibraryBrowseRefreshParams): Promise<Ref[]>;
-        search(params: MopidyLibrarySearchParams): Promise<SearchResult[]>
-        lookup(params: MopidyLibraryLookupParams): Promise<Track[]>;
-        refresh(params: MopidyLibraryBrowseRefreshParams): void;
-        getImages(params: MopidyLibraryGetImagesParams): Promise<MopidyGetImagesResponse>;
-    };
+    tracklist: Tracklist;
+    playback: Playback;
+    library: Library;
 
     connect(): void;
-
     close(): void;
-
     getUriSchemes(param: {}): Promise<string[]>;
-
     getVersion(param: {}): Promise<string>;
 }

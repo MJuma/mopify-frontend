@@ -2,26 +2,9 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 // @ts-ignore
 import * as Mopidy from 'mopidy';
-import { from, Observable } from 'rxjs';
 import { ApplicationState } from '../../../store/application/application.state';
 import * as MopidyActions from '../../../store/mopidy/mopidy.actions';
-import {
-    IMopidy,
-    MopidyGetImagesResponse,
-    MopidyLibraryBrowseRefreshParams,
-    MopidyLibraryGetImagesParams,
-    MopidyLibraryLookupParams,
-    MopidyLibrarySearchParams,
-    MopidyPlaybackPlayParams, MopidyPlaybackSeekParams, MopidyPlaybackSetStateParams,
-    MopidyTracklistAddParams,
-    MopidyTracklistIndexParams,
-    MopidyTracklistMoveParams,
-    MopidyTracklistShuffleParams, MopidyTracklistSliceParams, PlaybackState,
-    Ref,
-    SearchResult,
-    TlTrack,
-    Track
-} from '../../types/mopidy';
+import { IMopidy, Library, Playback, Tracklist } from '../../types/mopidy';
 
 @Injectable({
     providedIn: 'root'
@@ -79,116 +62,16 @@ export class MopidyService {
         return this.mopidy.getUriSchemes({});
     }
 
-    public tracklistAdd(params: MopidyTracklistAddParams): Observable<TlTrack[]> {
-        return from(this.mopidy.tracklist.add(params));
+    public tracklist(): Tracklist {
+        return this.mopidy.tracklist;
     }
 
-    public tracklistClear(): void {
-        return this.mopidy.tracklist.clear();
+    public playback(): Playback {
+        return this.mopidy.playback;
     }
 
-    public tracklistMove(params: MopidyTracklistMoveParams): void {
-        return this.mopidy.tracklist.move(params);
-    }
-
-    public tracklistShuffle(params: MopidyTracklistShuffleParams): void {
-        return this.mopidy.tracklist.shuffle(params);
-    }
-
-    public tracklistGetTlTracks(): Observable<TlTrack[]> {
-        return from(this.mopidy.tracklist.getTlTracks());
-    }
-
-    public tracklistIndex(params: MopidyTracklistIndexParams): Observable<number> {
-        return from(this.mopidy.tracklist.index(params));
-    }
-
-    public tracklistGetVersion(): Observable<number> {
-        return from(this.mopidy.tracklist.getVersion());
-    }
-
-    public tracklistGetLength(): Observable<number> {
-        return from(this.mopidy.tracklist.getLength());
-    }
-
-    public tracklistGetTracks(): Observable<Track[]> {
-        return from(this.mopidy.tracklist.getTracks());
-    }
-
-    public tracklistSlice(params: MopidyTracklistSliceParams): Observable<TlTrack[]> {
-        return from(this.mopidy.tracklist.slice(params));
-    }
-
-    public playbackPlay(params: MopidyPlaybackPlayParams): void {
-        return this.mopidy.playback.play(params);
-    }
-
-    public playbackNext(): void {
-        return this.mopidy.playback.next();
-    }
-
-    public playbackPrevious(): void {
-        return this.mopidy.playback.previous();
-    }
-
-    public playbackStop(): void {
-        return this.mopidy.playback.stop();
-    }
-
-    public playbackPause(): void {
-        return this.mopidy.playback.pause();
-    }
-
-    public playbackResume(): void {
-        return this.mopidy.playback.resume();
-    }
-
-    public playbackSeek(params: MopidyPlaybackSeekParams): Observable<boolean> {
-        return from(this.mopidy.playback.seek(params));
-    }
-
-    public playbackGetCurrentTlTrack(): Observable<TlTrack | undefined> {
-        return from(this.mopidy.playback.getCurrentTlTrack());
-    }
-
-    public playbackGetCurrentTrack(): Observable<Track | undefined> {
-        return from(this.mopidy.playback.getCurrentTrack());
-    }
-
-    public playbackGetStreamTitle(): Observable<string | undefined> {
-        return from(this.mopidy.playback.getStreamTitle());
-    }
-
-    public playbackGetTimePosition(): Observable<number | undefined> {
-        return from(this.mopidy.playback.getTimePosition());
-    }
-
-    public playbackGetState(): Observable<PlaybackState> {
-        return from(this.mopidy.playback.getState());
-    }
-
-    public playbackSetState(params: MopidyPlaybackSetStateParams): void {
-        return this.mopidy.playback.setState(params);
-    }
-
-    public libraryBrowse(params: MopidyLibraryBrowseRefreshParams): Observable<Ref[]> {
-        return from(this.mopidy.library.browse(params));
-    }
-
-    public librarySearch(params: MopidyLibrarySearchParams): Observable<SearchResult[]> {
-        return from(this.mopidy.library.search(params));
-    }
-
-    public libraryLookup(params: MopidyLibraryLookupParams): Observable<Track[]> {
-        return from(this.mopidy.library.lookup(params));
-    }
-
-    public libraryRefresh(params: MopidyLibraryBrowseRefreshParams): void {
-        return this.mopidy.library.refresh(params);
-    }
-
-    public libraryGetImages(params: MopidyLibraryGetImagesParams): Observable<MopidyGetImagesResponse> {
-        return from(this.mopidy.library.getImages(params));
+    public library(): Library {
+        return this.mopidy.library;
     }
 
     private eventLogger(eventName: string, eventData: object): void {

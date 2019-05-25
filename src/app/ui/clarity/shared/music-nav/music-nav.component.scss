@@ -12,11 +12,17 @@ table {
         table-layout: fixed;
     }
 
+    td {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .current-track {
+        margin-right: 4px;
+    }
+
     .selectable {
         cursor: pointer;
-
-        :hover {
-            background-color: #DDDDDD;
-        }
     }
 }

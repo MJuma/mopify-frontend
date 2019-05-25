@@ -1,5 +1,11 @@
 import { Action } from '@ngrx/store';
-import { MopidyTracklistAddParams, TlTrack, Track } from '../../shared/types/mopidy';
+import {
+    MopidyTracklistAddParams,
+    MopidyTracklistFilterParams, MopidyTracklistIndexParams,
+    MopidyTracklistMoveParams, MopidyTracklistOptionsParams, MopidyTracklistShuffleParams,
+    TlTrack,
+    Track
+} from '../../shared/types/mopidy';
 
 export enum TracklistActionTypes {
     // Manipulating
@@ -8,9 +14,13 @@ export enum TracklistActionTypes {
     ADD = '[Tracklist] Add',
     ADD_SUCCESS = '[Tracklist] Add Success',
     REMOVE = '[Tracklist] Remove',
+    REMOVE_SUCCESS = '[Tracklist] Remove Success',
     CLEAR = '[Tracklist] Clear',
+    CLEAR_SUCCESS = '[Tracklist] Clear Success',
     MOVE = '[Tracklist] Move',
+    MOVE_SUCESS = '[Tracklist] Move Success',
     SHUFFLE = '[Tracklist] Shuffle',
+    SHUFFLE_SUCCESS = '[Tracklist] Shuffle Success',
 
     // Current State
     GET_TL_TRACKS = '[Tracklist] Get Tl Tracks',
@@ -30,6 +40,20 @@ export enum TracklistActionTypes {
     // Future State
 
     // Options
+    GET_CONSUME = '[Tracklist] Get Consume',
+    GET_CONSUME_SUCCESS = '[Tracklist] Get Consume Success',
+    SET_CONSUME = '[Tracklist] Set Consume',
+    GET_RANDOM = '[Tracklist] Get Random',
+    GET_RANDOM_SUCCESS = '[Tracklist] Get Random Success',
+    SET_RANDOM = '[Tracklist] Set Random',
+    GET_REPEAT = '[Tracklist] Get Repeat',
+    GET_REPEAT_SUCCESS = '[Tracklist] Get Repeat Success',
+    SET_REPEAT = '[Tracklist] Set Repeat',
+    GET_SINGLE = '[Tracklist] Get Single',
+    GET_SINGLE_SUCCESS = '[Tracklist] Get Single Success',
+    SET_SINGLE = '[Tracklist] Set Single',
+    TOGGLE_SHUFFLE = '[Tracklist] Toggle Shuffle',
+    TOGGLE_REPEAT = '[Tracklist] Toggle Repeat',
 }
 
 export class QueueNext implements Action {
@@ -56,6 +80,47 @@ export class AddSuccess implements Action {
     constructor(public payload: TlTrack[]) {}
 }
 
+export class Remove implements Action {
+    readonly type = TracklistActionTypes.REMOVE;
+
+    constructor(public payload: MopidyTracklistFilterParams) {}
+}
+
+export class RemoveSuccess implements Action {
+    readonly type = TracklistActionTypes.REMOVE_SUCCESS;
+
+    constructor(public payload: TlTrack[]) {}
+}
+
+export class Clear implements Action {
+    readonly type = TracklistActionTypes.CLEAR;
+}
+
+export class ClearSuccess implements Action {
+    readonly type = TracklistActionTypes.CLEAR_SUCCESS;
+}
+
+export class Move implements Action {
+    readonly type = TracklistActionTypes.MOVE;
+
+    constructor(public payload: MopidyTracklistMoveParams) {}
+}
+
+export class MoveSuccess implements Action {
+    readonly type = TracklistActionTypes.MOVE_SUCESS;
+}
+
+
+export class Shuffle implements Action {
+    readonly type = TracklistActionTypes.SHUFFLE;
+
+    constructor(public payload: MopidyTracklistShuffleParams) {}
+}
+
+export class ShuffleSuccess implements Action {
+    readonly type = TracklistActionTypes.SHUFFLE_SUCCESS;
+}
+
 export class GetTlTracks implements Action {
     readonly type = TracklistActionTypes.GET_TL_TRACKS;
 }
@@ -66,10 +131,118 @@ export class GetTlTracksSuccess implements Action {
     constructor(public payload: TlTrack[]) {}
 }
 
+export class Index implements Action {
+    readonly type = TracklistActionTypes.INDEX;
+
+    constructor(public payload: MopidyTracklistIndexParams) {}
+}
+
+export class IndexSuccess implements Action {
+    readonly type = TracklistActionTypes.INDEX_SUCCESS;
+
+    constructor(public payload: number) {}
+}
+
+export class GetConsume implements Action {
+    readonly type = TracklistActionTypes.GET_CONSUME;
+}
+
+export class GetConsumeSuccess implements Action {
+    readonly type = TracklistActionTypes.GET_CONSUME_SUCCESS;
+
+    constructor(public payload: boolean) {}
+}
+
+export class SetConsume implements Action {
+    readonly type = TracklistActionTypes.SET_CONSUME;
+
+    constructor(public payload: MopidyTracklistOptionsParams) {}
+}
+
+export class GetRandom implements Action {
+    readonly type = TracklistActionTypes.GET_RANDOM;
+}
+
+export class GetRandomSuccess implements Action {
+    readonly type = TracklistActionTypes.GET_RANDOM_SUCCESS;
+
+    constructor(public payload: boolean) {}
+}
+
+export class SetRandom implements Action {
+    readonly type = TracklistActionTypes.SET_RANDOM;
+
+    constructor(public payload: MopidyTracklistOptionsParams) {}
+}
+
+export class GetRepeat implements Action {
+    readonly type = TracklistActionTypes.GET_REPEAT;
+}
+
+export class GetRepeatSuccess implements Action {
+    readonly type = TracklistActionTypes.GET_REPEAT_SUCCESS;
+
+    constructor(public payload: boolean) {}
+}
+
+export class SetRepeat implements Action {
+    readonly type = TracklistActionTypes.SET_REPEAT;
+
+    constructor(public payload: MopidyTracklistOptionsParams) {}
+}
+
+export class GetSingle implements Action {
+    readonly type = TracklistActionTypes.GET_SINGLE;
+}
+
+export class GetSingleSuccess implements Action {
+    readonly type = TracklistActionTypes.GET_SINGLE_SUCCESS;
+
+    constructor(public payload: boolean) {}
+}
+
+export class SetSingle implements Action {
+    readonly type = TracklistActionTypes.SET_SINGLE;
+
+    constructor(public payload: MopidyTracklistOptionsParams) {}
+}
+
+export class ToggleShuffle implements Action {
+    readonly type = TracklistActionTypes.TOGGLE_SHUFFLE;
+}
+
+export class ToggleRepeat implements Action {
+    readonly type = TracklistActionTypes.TOGGLE_REPEAT;
+}
+
 export type TracklistActionsUnion =
     QueueNext
     | QueueLast
     | Add
     | AddSuccess
+    | Remove
+    | RemoveSuccess
+    | Clear
+    | ClearSuccess
+    | Move
+    | MoveSuccess
+    | Shuffle
+    | ShuffleSuccess
     | GetTlTracks
-    | GetTlTracksSuccess;
+    | GetTlTracksSuccess
+    | Index
+    | IndexSuccess
+    | GetConsume
+    | GetConsumeSuccess
+    | SetConsume
+    | GetRandom
+    | GetRandomSuccess
+    | SetRandom
+    | GetRepeat
+    | GetRepeatSuccess
+    | SetRepeat
+    | GetSingle
+    | GetSingleSuccess
+    | SetSingle
+    | ToggleShuffle
+    | ToggleRepeat;

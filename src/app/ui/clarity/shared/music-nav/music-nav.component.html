@@ -1,21 +1,45 @@
 <table class="table table-compact">
     <thead>
     <tr>
-        <th class="left" colspan="5">Now Playing</th>
+        <th class="left" colspan="5">Tracklist</th>
         <th></th>
         <th></th>
     </tr>
     <tr>
         <th class="left" colspan="3">Title</th>
         <th class="left" colspan="3">Artist</th>
-        <th></th>
+        <th class="right"><clr-icon shape="trash" class="selectable" (click)="clearTracks()"></clr-icon></th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let tlTrack of tlTracks$ | async">
-        <td class="left" colspan="3">{{tlTrack.track.name}}</td>
-        <td class="left" colspan="3">{{tlTrack.track.artists[0].name}}</td>
-        <td class="right"><clr-icon shape="times"></clr-icon></td>
-    </tr>
+    <ng-container *ngIf="(tlTracks$ | async).length > 0; else noTracks">
+        <tr *ngFor="let tlTrack of (tlTracks$ | async); index as i">
+            <td class="left" colspan="3">
+                <clr-icon *ngIf="(index$ | async) === i" shape="music-note" class="is-solid current-track"></clr-icon>
+                <clr-tooltip>
+                    <a clrTooltipTrigger class="selectable" (click)="playTrack(tlTrack)"> {{tlTrack.track.name}}</a>
+                    <clr-tooltip-content clrPosition="top-left" clrSize="sm" *clrIfOpen>
+                        <span>{{tlTrack.track.name}}</span>
+                    </clr-tooltip-content>
+                </clr-tooltip>
+            </td>
+            <td class="left" colspan="3">
+                <clr-tooltip>
+                    <label clrTooltipTrigger>{{tlTrack.track.artists[0].name}}</label>
+                    <clr-tooltip-content clrPosition="top-left" clrSize="sm" *clrIfOpen>
+                        <span>{{tlTrack.track.artists[0].name}}</span>
+                    </clr-tooltip-content>
+                </clr-tooltip>
+            </td>
+            <td class="right">
+                <clr-icon shape="times" class="selectable" (click)="removeTrack(tlTrack)"></clr-icon>
+            </td>
+        </tr>
+    </ng-container>
+    <ng-template #noTracks>
+        <tr>
+            <td>Tracklist empty.</td>
+        </tr>
+    </ng-template>
     </tbody>
 </table>
