@@ -1,0 +1,19 @@
+<div class="main-container">
+    <header class="header-6">
+        <app-header></app-header>
+    </header>
+    <main class="content-container">
+        <section>
+            <article class="content-area">
+                <router-outlet></router-outlet>
+            </article>
+            <app-player></app-player>
+        </section>
+        <clr-vertical-nav class="nav-trigger--bottom" [clrVerticalNavCollapsible]="true">
+            <app-side-nav></app-side-nav>
+        </clr-vertical-nav>
+        <clr-vertical-nav class="nav-trigger--bottom music-nav">
+            <app-music-nav></app-music-nav>
+        </clr-vertical-nav>
+    </main>
+</div>

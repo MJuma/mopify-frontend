@@ -1,29 +1,14 @@
-import { routerReducer } from '@ngrx/router-store';
 import { ActionReducerMap, ActionReducer, MetaReducer, Action } from '@ngrx/store';
 import { storeLogger } from 'ngrx-store-logger';
 import { storeFreeze } from 'ngrx-store-freeze';
 
 import { environment } from 'src/environments/environment';
-import { MopidyActionsUnion } from './actions/mopidy.actions';
-import { TracklistActionsUnion } from './actions/tracklist.actions';
-import { initialMopidyState, mopidyReducer } from './reducers/mopidy.reducer';
-import { initialTracklistState, tracklistReducer } from './reducers/tracklist.reducer';
-import { ApplicationState } from './state/application.state';
+import { ApplicationState } from './application/application.state';
 
 export const initialApplicationState: Readonly<ApplicationState> = {
-    router: undefined,
-    mopidy: initialMopidyState,
-    tracklist: initialTracklistState,
 };
 
-export type ApplicationActionsIntersection =
-    MopidyActionsUnion
-    & TracklistActionsUnion;
-
-export const reducers: ActionReducerMap<ApplicationState, ApplicationActionsIntersection> = {
-    router: routerReducer,
-    mopidy: mopidyReducer,
-    tracklist: tracklistReducer,
+export const reducers: ActionReducerMap<ApplicationState> = {
 };
 
 export function logger(reducer: ActionReducer<unknown>) {

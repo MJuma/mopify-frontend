@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ApplicationState } from './store/state/application.state';
-import * as MopidyActions from './store/actions/mopidy.actions';
+import { ApplicationState } from './store/application/application.state';
+import * as MopidyActions from './store/mopidy/mopidy.actions';
 
 @Component({
     selector: 'app-root',

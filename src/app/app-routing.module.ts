@@ -1,20 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 const routes: Routes = [
     {
         path: '',
-        loadChildren: './pages/home/home.module#HomeModule',
+        loadChildren: './ui/clarity/clarity-ui.module#ClarityUiModule',
     },
-    {
-        path: 'local',
-        loadChildren: './pages/local/local.module#LocalModule',
-    },
-    {
-        path: '**',
-        component: NotFoundComponent,
-    }
 ];
 
 @NgModule({

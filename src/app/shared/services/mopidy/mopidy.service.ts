@@ -3,8 +3,8 @@ import { Store } from '@ngrx/store';
 // @ts-ignore
 import * as Mopidy from 'mopidy';
 import { from, Observable } from 'rxjs';
-import { ApplicationState } from '../../../store/state/application.state';
-import * as MopidyActions from '../../../store/actions/mopidy.actions';
+import { ApplicationState } from '../../../store/application/application.state';
+import * as MopidyActions from '../../../store/mopidy/mopidy.actions';
 import {
     IMopidy,
     MopidyGetImagesResponse,
@@ -12,11 +12,11 @@ import {
     MopidyLibraryGetImagesParams,
     MopidyLibraryLookupParams,
     MopidyLibrarySearchParams,
-    MopidyPlaybackPlayParams,
+    MopidyPlaybackPlayParams, MopidyPlaybackSeekParams, MopidyPlaybackSetStateParams,
     MopidyTracklistAddParams,
     MopidyTracklistIndexParams,
     MopidyTracklistMoveParams,
-    MopidyTracklistShuffleParams, MopidyTracklistSliceParams,
+    MopidyTracklistShuffleParams, MopidyTracklistSliceParams, PlaybackState,
     Ref,
     SearchResult,
     TlTrack,
@@ -40,13 +40,13 @@ export class MopidyService {
             webSocketUrl: 'ws://localhost:6680/mopidy/ws/'
         });
 
-        this.mopidy.on('state:online', () => {
+        this.mopidy.on('application:online', () => {
             this.store.dispatch(new MopidyActions.StateChanged('on'));
             this.store.dispatch(new MopidyActions.GetVersion());
             this.store.dispatch(new MopidyActions.GetUriSchemes());
         });
 
-        this.mopidy.on('state:offline', () => {
+        this.mopidy.on('application:offline', () => {
             this.store.dispatch(new MopidyActions.StateChanged('off'));
         });
 
@@ -121,6 +121,54 @@ export class MopidyService {
 
     public playbackPlay(params: MopidyPlaybackPlayParams): void {
         return this.mopidy.playback.play(params);
+    }
+
+    public playbackNext(): void {
+        return this.mopidy.playback.next();
+    }
+
+    public playbackPrevious(): void {
+        return this.mopidy.playback.previous();
+    }
+
+    public playbackStop(): void {
+        return this.mopidy.playback.stop();
+    }
+
+    public playbackPause(): void {
+        return this.mopidy.playback.pause();
+    }
+
+    public playbackResume(): void {
+        return this.mopidy.playback.resume();
+    }
+
+    public playbackSeek(params: MopidyPlaybackSeekParams): Observable<boolean> {
+        return from(this.mopidy.playback.seek(params));
+    }
+
+    public playbackGetCurrentTlTrack(): Observable<TlTrack | undefined> {
+        return from(this.mopidy.playback.getCurrentTlTrack());
+    }
+
+    public playbackGetCurrentTrack(): Observable<Track | undefined> {
+        return from(this.mopidy.playback.getCurrentTrack());
+    }
+
+    public playbackGetStreamTitle(): Observable<string | undefined> {
+        return from(this.mopidy.playback.getStreamTitle());
+    }
+
+    public playbackGetTimePosition(): Observable<number | undefined> {
+        return from(this.mopidy.playback.getTimePosition());
+    }
+
+    public playbackGetState(): Observable<PlaybackState> {
+        return from(this.mopidy.playback.getState());
+    }
+
+    public playbackSetState(params: MopidyPlaybackSetStateParams): void {
+        return this.mopidy.playback.setState(params);
     }
 
     public libraryBrowse(params: MopidyLibraryBrowseRefreshParams): Observable<Ref[]> {

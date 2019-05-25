@@ -1,0 +1,15 @@
+:host {
+    flex: 0 0 15%;
+    background-color: #D9E4EA;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    .controls {
+        clr-icon {
+            margin: 0 8px;
+        }
+    }
+}

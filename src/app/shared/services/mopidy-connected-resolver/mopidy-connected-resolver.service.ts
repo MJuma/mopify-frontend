@@ -3,8 +3,8 @@ import { CanLoad, Route, UrlSegment } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { filter, mapTo, tap } from 'rxjs/operators';
-import { selectMopidyConnectionState } from '../../../store/reducers/mopidy.reducer';
-import { ApplicationState } from '../../../store/state/application.state';
+import { selectMopidyConnectionState } from '../../../store/mopidy/mopidy.reducer';
+import { ApplicationState } from '../../../store/application/application.state';
 
 @Injectable({
     providedIn: 'root'

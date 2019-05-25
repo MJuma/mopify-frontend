@@ -125,6 +125,14 @@ export interface MopidyPlaybackPlayParams {
     tlid?: number;
 }
 
+export interface MopidyPlaybackSeekParams {
+    time_position: number;
+}
+
+export interface MopidyPlaybackSetStateParams {
+    new_state: PlaybackState;
+}
+
 export interface MopidyLibraryBrowseRefreshParams {
     uri: string | null;
 }
@@ -164,6 +172,18 @@ export interface IMopidy extends EventEmitter {
     };
     playback: {
         play(params: MopidyPlaybackPlayParams): void;
+        next(): void;
+        previous(): void;
+        stop(): void;
+        pause(): void;
+        resume(): void;
+        seek(params: MopidyPlaybackSeekParams): Promise<boolean>;
+        getCurrentTlTrack(): Promise<TlTrack | undefined>;
+        getCurrentTrack(): Promise<Track | undefined>;
+        getStreamTitle(): Promise<string | undefined>;
+        getTimePosition(): Promise<number | undefined>;
+        getState(): Promise<PlaybackState>;
+        setState(params: MopidyPlaybackSetStateParams): void;
     };
     library: {
         browse(params: MopidyLibraryBrowseRefreshParams): Promise<Ref[]>;
