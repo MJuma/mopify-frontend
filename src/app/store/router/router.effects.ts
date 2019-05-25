@@ -1,9 +1,3 @@
-/* -----------------------------------------------------------------------
- * <copyright company="Microsoft Corporation">
- *   Copyright (c) Microsoft Corporation.  All rights reserved.
- * </copyright>
- * ----------------------------------------------------------------------- */
-
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { map, tap } from 'rxjs/operators';

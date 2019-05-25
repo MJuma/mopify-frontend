@@ -25,25 +25,8 @@
     </table>
 </div>
 
-<div class="btn-group btn-outline-primary btn-sm">
-    <button class="btn">Add</button>
-    <button class="btn">Edit</button>
-    <button class="btn">Download</button>
-    <button class="btn">Delete</button>
-</div>
-
-<clr-datagrid>
-    <clr-dg-column>Track #</clr-dg-column>
-    <clr-dg-column>Song</clr-dg-column>
-    <clr-dg-column>Genre</clr-dg-column>
-    <clr-dg-column>Year</clr-dg-column>
-
-    <clr-dg-row *ngFor="let track of (tracks$ | async)" (click)="playTrack(track.uri)">
-        <clr-dg-cell>{{track.track_no}}</clr-dg-cell>
-        <clr-dg-cell>{{track.name}}</clr-dg-cell>
-        <clr-dg-cell>{{track.genre}}</clr-dg-cell>
-        <clr-dg-cell>{{track.date}}</clr-dg-cell>
-    </clr-dg-row>
-
-    <clr-dg-footer>{{(tracks$ | async).length}} songs</clr-dg-footer>
-</clr-datagrid>
+<app-tracks-table
+    [tracks]="(tracks$ | async)"
+    (queueNext)="queueNext($event)"
+    (queueLast)="queueLast($event)">
+</app-tracks-table>

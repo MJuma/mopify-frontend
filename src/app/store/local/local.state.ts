@@ -1,4 +1,4 @@
-import { Ref, Track } from '../../../../../../shared/types/mopidy';
+import { Ref, Track } from '../../shared/types/mopidy';
 
 export interface LocalState {
     directories: Ref[];

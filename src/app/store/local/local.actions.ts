@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
-import { MopidyLibrarySearchParams, Ref, Track } from '../../../../../../shared/types/mopidy';
-import { MopidyDirectoriesMap } from '../../../../../../shared/types/mopidy-directories-map';
+import { MopidyLibrarySearchParams, Ref, Track } from '../../shared/types/mopidy';
+import { MopidyDirectoriesMap } from '../../shared/types/mopidy-directories-map';
 
 export enum LocalActionTypes {
     GET_ROOT_DIRECTORIES = '[Local] Get Root Directories',

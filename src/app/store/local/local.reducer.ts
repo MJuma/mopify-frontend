@@ -1,8 +1,7 @@
-import { createSelector } from '@ngrx/store';
-import { LocalActionsUnion, LocalActionTypes } from '../actions/local.actions';
-import { selectLocalRootState } from '../index';
-import { LocalRootState } from '../state/local-root.state';
-import { LocalState } from '../state/local.state';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { ApplicationState } from '../application/application.state';
+import { LocalActionsUnion, LocalActionTypes } from './local.actions';
+import { LocalState } from './local.state';
 
 export const initialLocalState: LocalState = {
     directories: [],
@@ -38,7 +37,7 @@ export function localReducer(state: LocalState = initialLocalState, action: Loca
     }
 }
 
-export const selectLocalState = createSelector(selectLocalRootState, (state: LocalRootState) => state.local);
+export const selectLocalState = createFeatureSelector<ApplicationState, LocalState>('local');
 
 export const selectArtists = createSelector(selectLocalState, (state: LocalState) => state.artists);
 export const selectAlbums = createSelector(selectLocalState, (state: LocalState) => state.albums);

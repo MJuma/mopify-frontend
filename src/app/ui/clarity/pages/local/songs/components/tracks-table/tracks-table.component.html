@@ -1,0 +1,32 @@
+<clr-datagrid [(clrDgSelected)]="selectedTracks" [clrDgRowSelection]="true">
+    <clr-dg-action-bar>
+        <div class="btn-group">
+            <clr-dropdown>
+                <button type="button" class="btn btn-sm btn-secondary" clrDropdownTrigger [disabled]="selectedTracks.length === 0">
+                    Queue
+                    <clr-icon shape="caret down"></clr-icon>
+                </button>
+                <clr-dropdown-menu clrPosition="bottom-left" *clrIfOpen>
+                    <button type="button" (click)="queueNext.emit(selectedTracks); selectedTracks = []" clrDropdownItem>Queue Next</button>
+                    <button type="button" (click)="queueLast.emit(selectedTracks); selectedTracks = []" clrDropdownItem>Queue Last</button>
+                </clr-dropdown-menu>
+            </clr-dropdown>
+        </div>
+    </clr-dg-action-bar>
+
+    <clr-dg-column class="small-column">Track #</clr-dg-column>
+    <clr-dg-column>Song</clr-dg-column>
+    <clr-dg-column class="small-column">Length</clr-dg-column>
+    <clr-dg-column>Genre</clr-dg-column>
+    <clr-dg-column class="small-column">Year</clr-dg-column>
+
+    <clr-dg-row *ngFor="let track of tracks" [clrDgItem]="track">
+        <clr-dg-cell class="small-column">{{track.track_no}}</clr-dg-cell>
+        <clr-dg-cell>{{track.name}}</clr-dg-cell>
+        <clr-dg-cell class="small-column">{{track.length | songLength}}</clr-dg-cell>
+        <clr-dg-cell>{{track.genre}}</clr-dg-cell>
+        <clr-dg-cell class="small-column">{{track.date}}</clr-dg-cell>
+    </clr-dg-row>
+
+    <clr-dg-footer>{{tracks.length}} songs</clr-dg-footer>
+</clr-datagrid>

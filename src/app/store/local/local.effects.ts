@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { forkJoin, from, Observable } from 'rxjs';
 import { concatMap, map, mergeMap, switchMap, tap } from 'rxjs/operators';
-import { MopidyService } from '../../../../../../shared/services/mopidy/mopidy.service';
-import { Ref, SearchResult, TlTrack, Track } from '../../../../../../shared/types/mopidy';
-import { LocalActionTypes } from '../actions/local.actions';
-import * as LocalActions from '../actions/local.actions';
+import { MopidyService } from '../../shared/services/mopidy/mopidy.service';
+import { Ref, SearchResult, TlTrack, Track } from '../../shared/types/mopidy';
+import { LocalActionTypes } from './local.actions';
+import * as LocalActions from './local.actions';
 
 @Injectable()
 export class LocalEffects {
@@ -13,18 +13,23 @@ export class LocalEffects {
     @Effect()
     readonly getRootDirectories$ = this.actions$.pipe(
         ofType(LocalActionTypes.GET_ROOT_DIRECTORIES),
-        switchMap(() => from(this.mopidy.libraryBrowse({uri: null}))),
-        mergeMap((rootDirectories: Ref[]) => [
-            new LocalActions.GetRootDirectoriesSuccess(rootDirectories),
-            new LocalActions.GetArtists('local:directory'),
-        ]),
+        switchMap(() => from(this.mopidy.libraryBrowse({ uri: null }))),
+        mergeMap((rootDirectories: Ref[]) => rootDirectories.find((directory: Ref) => directory.uri === 'local:directory')
+            ? [
+                new LocalActions.GetRootDirectoriesSuccess(rootDirectories),
+                new LocalActions.GetArtists('local:directory'),
+            ]
+            : [
+                new LocalActions.GetRootDirectoriesSuccess(rootDirectories),
+            ],
+        ),
     );
 
     @Effect()
     readonly getArtists$ = this.actions$.pipe(
         ofType(LocalActionTypes.GET_ARTISTS),
         map((action: LocalActions.GetArtists) => action.payload),
-        switchMap((uri: string) => this.mopidy.libraryBrowse({uri})),
+        switchMap((uri: string) => this.mopidy.libraryBrowse({ uri })),
         map((artists: Ref[]) => new LocalActions.GetArtistsSuccess(artists)),
     );
 
@@ -32,7 +37,7 @@ export class LocalEffects {
     readonly getAlbums$ = this.actions$.pipe(
         ofType(LocalActionTypes.GET_ALBUMS),
         map((action: LocalActions.GetArtists) => action.payload),
-        switchMap((uri: string) => this.mopidy.libraryBrowse({uri})),
+        switchMap((uri: string) => this.mopidy.libraryBrowse({ uri })),
         map((artists: Ref[]) => new LocalActions.GetAlbumsSuccess(artists)),
     );
 
@@ -40,9 +45,9 @@ export class LocalEffects {
     readonly getTracks$ = this.actions$.pipe(
         ofType(LocalActionTypes.GET_TRACKS),
         map((action: LocalActions.GetTracks) => action.payload),
-        switchMap((uri: string) => this.mopidy.libraryBrowse({uri})),
+        switchMap((uri: string) => this.mopidy.libraryBrowse({ uri })),
         map((trackRefs: Ref[]) => trackRefs.map((trackRef: Ref) => trackRef.uri)),
-        map((trackUris: string[]) => trackUris.map((uri: string) => this.mopidy.librarySearch({query: {uri}}))),
+        map((trackUris: string[]) => trackUris.map((uri: string) => this.mopidy.librarySearch({ query: { uri } }))),
         concatMap((searchCalls: Observable<SearchResult[]>[]) => forkJoin(...searchCalls)),
         map((allTracksResults: SearchResult[][]) =>
             allTracksResults.map(singleTracksResults =>
@@ -58,8 +63,8 @@ export class LocalEffects {
     readonly playTrack$ = this.actions$.pipe(
         ofType(LocalActionTypes.PLAY_TRACK),
         map((action: LocalActions.PlayTrack) => action.payload),
-        switchMap((uri: string) => this.mopidy.tracklistAdd({uri})),
-        tap((tlTracks: TlTrack[]) => this.mopidy.playbackPlay({tl_track: tlTracks[0]})),
+        switchMap((uri: string) => this.mopidy.tracklistAdd({ uri })),
+        tap((tlTracks: TlTrack[]) => this.mopidy.playbackPlay({ tl_track: tlTracks[0] })),
     );
 
     /*@Effect()
@@ -71,11 +76,11 @@ export class LocalEffects {
         map((uri: string) => new LocalActions.GetDirectory(uri)),
     );*/
 
-    @Effect({dispatch: false})
+    @Effect({ dispatch: false })
     readonly getDirectory$ = this.actions$.pipe(
         ofType(LocalActionTypes.GET_DIRECTORY),
         map((action: LocalActions.GetDirectory) => action.payload),
-        mergeMap((uri: string) => from(this.mopidy.libraryBrowse({uri})), 1),
+        mergeMap((uri: string) => from(this.mopidy.libraryBrowse({ uri })), 1),
         tap(x => console.log(x)),
         /*map((directories: Ref[]) => directories.map((directory: Ref) => {
             switch (directory.type) {

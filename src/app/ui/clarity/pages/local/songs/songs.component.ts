@@ -3,8 +3,9 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Ref, Track } from '../../../../../shared/types/mopidy';
 import { ApplicationState } from '../../../../../store/application/application.state';
-import * as LocalActions from '../store/actions/local.actions';
-import * as fromLocalReducer from '../store/reducers/local.reducer';
+import * as LocalActions from '../../../../../store/local/local.actions';
+import * as fromLocalReducer from '../../../../../store/local/local.reducer';
+import * as TracklistActions from '../../../../../store/tracklist/tracklist.actions';
 
 @Component({
     selector: 'app-songs',
@@ -37,5 +38,13 @@ export class SongsComponent implements OnInit {
 
     public playTrack(uri: string): void {
         this.store.dispatch(new LocalActions.PlayTrack(uri));
+    }
+
+    public queueNext(tracks: Track[]): void {
+        this.store.dispatch(new TracklistActions.QueueNext(tracks));
+    }
+
+    public queueLast(tracks: Track[]): void {
+        this.store.dispatch(new TracklistActions.QueueLast(tracks));
     }
 }
