@@ -7,6 +7,7 @@ import { MopidyPlaybackSeekParams, PlaybackState, TlTrack, Track } from '../../s
 import * as LocalActions from '../local/local.actions';
 import { PlayerActionsUnion, PlayerActionTypes } from './player.actions';
 import * as PlayerActions from './player.actions';
+import * as LyricsActions from '../lyrics/lyrics.actions';
 
 @Injectable()
 export class PlayerEffects {
@@ -24,6 +25,7 @@ export class PlayerEffects {
         map(({ payload }: PlayerActions.GetCurrentTrackSuccess) => payload),
         mergeMap((track: Track | undefined) => track ? [
             new LocalActions.GetImages({uris: [track.uri]}),
+            new LyricsActions.GetLyrics(track),
         ] : []),
     );
 

@@ -3,5 +3,13 @@
         "target": "http://localhost:6680",
         "secure": false,
         "logLevel": "debug"
+    },
+    "/lyrics": {
+        "target": "https://api.musixmatch.com/ws/1.1",
+        "logLevel": "debug",
+        "pathRewrite": {
+            "^/lyrics": ""
+        },
+        "changeOrigin": true
     }
 }

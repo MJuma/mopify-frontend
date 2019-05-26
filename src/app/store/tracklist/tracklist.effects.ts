@@ -36,7 +36,7 @@ export class TracklistEffects {
             map((index: number) => ({ uris, at_position: ++index }))),
         ),
         switchMap((params: MopidyTracklistAddParams) => from(this.mopidy.tracklist().add(params))),
-        tap(() => this.mopidy.playback().next()),
+        tap((tlTracks: TlTrack[]) => this.mopidy.playback().play({tl_track: tlTracks[0]})),
     );
 
     @Effect()

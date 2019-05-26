@@ -4,11 +4,13 @@ import { Observable } from 'rxjs';
 import { ApplicationState } from '../../../../store/application/application.state';
 import { TlTrack, Track } from '../../../../shared/types/mopidy';
 import { ImageUris } from '../../../../store/local/local.state';
+import { LyricsCache } from '../../../../store/lyrics/lyrics.state';
 import * as fromTracklistReducer from '../../../../store/tracklist/tracklist.reducer';
 import * as TracklistActions from '../../../../store/tracklist/tracklist.actions';
 import * as PlayerActions from '../../../../store/player/player.actions';
 import * as fromLocalReducer from '../../../../store/local/local.reducer';
 import * as fromPlayerReducer from '../../../../store/player/player.reducer';
+import * as fromLyricsReducer from '../../../../store/lyrics/lyrics.reducer';
 
 @Component({
     selector: 'app-music-nav',
@@ -21,6 +23,7 @@ export class MusicNavComponent implements OnInit {
     public index$: Observable<number | undefined>;
     public images$: Observable<ImageUris>;
     public currentTrack$: Observable<Track | undefined>;
+    public lyrics$: Observable<LyricsCache>;
 
     constructor(private store: Store<ApplicationState>) {
     }
@@ -30,6 +33,7 @@ export class MusicNavComponent implements OnInit {
         this.index$ = this.store.select(fromTracklistReducer.selectIndex);
         this.images$ = this.store.select(fromLocalReducer.selectImages);
         this.currentTrack$ = this.store.select(fromPlayerReducer.selectCurrentTrack);
+        this.lyrics$ = this.store.select(fromLyricsReducer.selectLyrics);
     }
 
     public removeTrack(tlTrack: TlTrack): void {

@@ -41,8 +41,14 @@
     }
 
     clr-tabs {
+        min-height: 375px;
+
         .card {
             margin-top: 0;
+
+            .card-text {
+                margin-bottom: 0;
+            }
         }
     }
 }
