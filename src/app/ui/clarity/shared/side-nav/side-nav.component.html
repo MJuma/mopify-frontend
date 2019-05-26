@@ -1,5 +1,5 @@
 <section>
-    <a clrVerticalNavLink routerLink="/" routerLinkActive="active">
+    <a clrVerticalNavLink routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <clr-icon clrVerticalNavIcon shape="home"></clr-icon>
         Home
     </a>
@@ -7,22 +7,47 @@
         <clr-icon shape="library" clrVerticalNavIcon></clr-icon>
         Local
         <clr-vertical-nav-group-children>
-            <a clrVerticalNavLink routerLink="/local/songs">Songs</a>
-            <a clrVerticalNavLink routerLink="/local">Albums</a>
-            <a clrVerticalNavLink routerLink="/">Artists</a>
-            <a clrVerticalNavLink routerLink="/">Playlists</a>
+            <a clrVerticalNavLink routerLink="/local/songs" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                <clr-icon shape="music-note"></clr-icon>
+                Songs
+            </a>
+            <a clrVerticalNavLink routerLink="/local" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                <clr-icon shape="folder"></clr-icon>
+                Browse
+            </a>
+            <a clrVerticalNavLink routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                <clr-icon shape="number-list"></clr-icon>
+                Playlists
+            </a>
         </clr-vertical-nav-group-children>
     </clr-vertical-nav-group>
     <clr-vertical-nav-group>
         <img clrVerticalNavIcon src="assets/spotify.svg">
         Spotify
         <clr-vertical-nav-group-children>
-            <a clrVerticalNavLink routerLink="/">Home</a>
-            <a clrVerticalNavLink routerLink="/">Browse</a>
-            <a clrVerticalNavLink routerLink="/">Playlists</a>
-            <a clrVerticalNavLink routerLink="/">Discover</a>
-            <a clrVerticalNavLink routerLink="/">Radio</a>
-            <a clrVerticalNavLink routerLink="/">Stations</a>
+            <a clrVerticalNavLink routerLink="/">
+                <clr-icon shape="dashboard"></clr-icon>
+                Home
+            </a>
+            <a clrVerticalNavLink routerLink="/">
+                <clr-icon shape="folder"></clr-icon>
+                Browse
+            </a>
+            <a clrVerticalNavLink routerLink="/">
+                <clr-icon shape="number-list"></clr-icon>
+                Playlists
+            </a>
+            <a clrVerticalNavLink routerLink="/">
+                <clr-icon shape="radar"></clr-icon>
+                Discover
+            </a>
+            <a clrVerticalNavLink routerLink="/">
+                Radio
+            </a>
+            <a clrVerticalNavLink routerLink="/">
+                <clr-icon shape="grid-chart"></clr-icon>
+                Stations
+            </a>
         </clr-vertical-nav-group-children>
     </clr-vertical-nav-group>
 </section>
