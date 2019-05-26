@@ -6,6 +6,7 @@ import * as TracklistActions from '../tracklist/tracklist.actions';
 import * as PlayerActions from '../player/player.actions';
 import * as MopidyEventActions from './mopidy-event.actions';
 import * as MixerActions from '../mixer/mixer.actions';
+import * as LibraryActions from '../library/library.actions';
 
 @Injectable()
 export class MopidyEventEffects {
@@ -25,6 +26,7 @@ export class MopidyEventEffects {
             new PlayerActions.GetPlaybackState(),
             new MixerActions.GetVolume(),
             new MixerActions.GetMute(),
+            new LibraryActions.GetRootDirectories(),
         ]),
     );
 

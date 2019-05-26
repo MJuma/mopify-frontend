@@ -1,6 +1,13 @@
 import { EventEmitter } from 'events';
 
 export type Type = 'artist' | 'album' | 'track' | 'playlist' | 'directory';
+export enum Types {
+    ARTIST = 'artist',
+    ALBUM = 'album',
+    TRACK = 'track',
+    PLAYLIST = 'playlist',
+    DIRECTORY = 'directory',
+}
 export type Field = 'track' | 'artist' | 'albumartist' | 'album' | 'composer' | 'performer' | 'date' | 'genre';
 export type SearchField =
     'uri'

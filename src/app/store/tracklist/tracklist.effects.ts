@@ -31,7 +31,6 @@ export class TracklistEffects {
     readonly queueNow$ = this.actions.pipe(
         ofType(TracklistActionTypes.QUEUE_NOW),
         map(({ payload }: TracklistActions.QueueNow) => payload),
-        map((tracks: Track[]) => tracks.map((track: Track) => track.uri)),
         switchMap((uris: string[]) => from(this.mopidy.tracklist().index({})).pipe(
             map((index: number) => ({ uris, at_position: ++index }))),
         ),

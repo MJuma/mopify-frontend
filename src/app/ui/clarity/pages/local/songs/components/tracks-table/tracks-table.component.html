@@ -32,6 +32,8 @@
     <clr-dg-column>Genre</clr-dg-column>
     <clr-dg-column class="small-column">Year</clr-dg-column>
 
+    <clr-dg-placeholder>No albums selected</clr-dg-placeholder>
+
     <clr-dg-row *ngFor="let track of tracks" [clrDgItem]="track">
         <clr-dg-cell class="small-column">{{track.track_no}}</clr-dg-cell>
         <clr-dg-cell>{{track.name}}</clr-dg-cell>

@@ -61,7 +61,7 @@ export enum TracklistActionTypes {
 export class QueueNow implements Action {
     readonly type = TracklistActionTypes.QUEUE_NOW;
 
-    constructor(public payload: Track[]) {}
+    constructor(public payload: string[]) {}
 }
 
 export class QueueNext implements Action {

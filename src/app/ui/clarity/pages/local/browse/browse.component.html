@@ -1,0 +1,8 @@
+<app-browse-table
+    [currentDirectories]="(currentDirectories$ | async)"
+    [previousDirectoryUris]="(previousDirectoryUris$ | async)"
+    (browseDirectory)="browseDirectory($event)"
+    (browseBack)="browseBack($event)"
+    (playTrack)="playTrack($event)"
+    (queueAll)="queueAll($event)">
+</app-browse-table>

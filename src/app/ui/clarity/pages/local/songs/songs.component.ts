@@ -37,7 +37,7 @@ export class SongsComponent implements OnInit {
     }
 
     public queueNow(tracks: Track[]): void {
-        this.store.dispatch(new TracklistActions.QueueNow(tracks));
+        this.store.dispatch(new TracklistActions.QueueNow(tracks.map((track: Track) => track.uri)));
     }
 
     public queueNext(tracks: Track[]): void {

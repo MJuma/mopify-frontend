@@ -1,0 +1,37 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th class="left">
+            <button
+                *ngIf="previousDirectoryUris.length > 1; else rootDirectory"
+                class="btn btn-sm btn-link"
+                (click)="browseBack.emit(previousDirectoryUris[previousDirectoryUris.length - 1])">
+                <clr-icon shape="arrow left"></clr-icon> Back
+            </button>
+            <ng-template #rootDirectory>
+                <label>Local media</label>
+            </ng-template>
+            <button
+                *ngIf="currentDirectories[0]?.type === 'track'"
+                class="btn btn-sm btn-link"
+                (click)="queueAll.emit(currentDirectories)">
+                <clr-icon shape="add"></clr-icon> Queue all
+            </button>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let directory of currentDirectories" class="selectable">
+        <ng-container [ngSwitch]="directory.type">
+            <td *ngSwitchCase="types.DIRECTORY" class="left" (click)="browseDirectory.emit(directory.uri)">
+                <clr-icon shape="folder"></clr-icon>
+                {{directory.name}}
+            </td>
+            <td *ngSwitchCase="types.TRACK" class="left" (click)="playTrack.emit(directory.uri)">
+                <clr-icon shape="music-note"></clr-icon>
+                {{directory.name}}
+            </td>
+        </ng-container>
+    </tr>
+    </tbody>
+</table>

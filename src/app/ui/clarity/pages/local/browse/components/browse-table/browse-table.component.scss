@@ -1,0 +1,32 @@
+table {
+    margin-top: 0;
+
+    tbody {
+        display: block;
+        max-height: 700px;
+        overflow: auto;
+    }
+    th, tbody tr {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    th {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        button {
+            margin: 0;
+        }
+    }
+
+    .selectable {
+        cursor: pointer;
+
+        :hover {
+            background-color: #DDDDDD;
+        }
+    }
+}

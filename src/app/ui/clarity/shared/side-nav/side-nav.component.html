@@ -3,7 +3,7 @@
         <clr-icon clrVerticalNavIcon shape="home"></clr-icon>
         Home
     </a>
-    <clr-vertical-nav-group>
+    <clr-vertical-nav-group *ngIf="(localDirectoryExists$ | async)">
         <clr-icon shape="library" clrVerticalNavIcon></clr-icon>
         Local
         <clr-vertical-nav-group-children>
@@ -11,17 +11,17 @@
                 <clr-icon shape="music-note"></clr-icon>
                 Songs
             </a>
-            <a clrVerticalNavLink routerLink="/local" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a clrVerticalNavLink routerLink="/local/browse" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                 <clr-icon shape="folder"></clr-icon>
                 Browse
             </a>
-            <a clrVerticalNavLink routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a clrVerticalNavLink routerLink="/local/playlists" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                 <clr-icon shape="number-list"></clr-icon>
                 Playlists
             </a>
         </clr-vertical-nav-group-children>
     </clr-vertical-nav-group>
-    <clr-vertical-nav-group>
+    <clr-vertical-nav-group *ngIf="(spotifyWebDirectoryExists$ | async)">
         <img clrVerticalNavIcon src="assets/spotify.svg">
         Spotify
         <clr-vertical-nav-group-children>
@@ -50,6 +50,10 @@
             </a>
         </clr-vertical-nav-group-children>
     </clr-vertical-nav-group>
+    <a clrVerticalNavLink routerLink="/search">
+        <clr-icon clrVerticalNavIcon shape="search"></clr-icon>
+        Search
+    </a>
 </section>
 <section>
     <a clrVerticalNavLink routerLink="/settings">
