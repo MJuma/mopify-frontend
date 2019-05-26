@@ -23,7 +23,7 @@ export class BrowseComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.currentDirectories$ = this.store.select(fromLibraryReducer.selectCurrentDirectories);
+        this.currentDirectories$ = this.store.select(fromLibraryReducer.selectChildDirectories);
         this.previousDirectoryUris$ = this.store.select(fromLibraryReducer.selectPreviousDirectoryUris);
 
         this.store.dispatch(new LibraryActions.BrowseLocal());

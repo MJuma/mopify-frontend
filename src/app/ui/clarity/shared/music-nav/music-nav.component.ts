@@ -8,7 +8,7 @@ import { LyricsCache } from '../../../../store/lyrics/lyrics.state';
 import * as fromTracklistReducer from '../../../../store/tracklist/tracklist.reducer';
 import * as TracklistActions from '../../../../store/tracklist/tracklist.actions';
 import * as PlayerActions from '../../../../store/player/player.actions';
-import * as fromLocalReducer from '../../../../store/local/local.reducer';
+import * as fromLibraryReducer from '../../../../store/library/library.reducer';
 import * as fromPlayerReducer from '../../../../store/player/player.reducer';
 import * as fromLyricsReducer from '../../../../store/lyrics/lyrics.reducer';
 
@@ -31,7 +31,7 @@ export class MusicNavComponent implements OnInit {
     ngOnInit() {
         this.tlTracks$ = this.store.select(fromTracklistReducer.selectTlTracks);
         this.index$ = this.store.select(fromTracklistReducer.selectIndex);
-        this.images$ = this.store.select(fromLocalReducer.selectImages);
+        this.images$ = this.store.select(fromLibraryReducer.selectImages);
         this.currentTrack$ = this.store.select(fromPlayerReducer.selectCurrentTrack);
         this.lyrics$ = this.store.select(fromLyricsReducer.selectLyrics);
     }

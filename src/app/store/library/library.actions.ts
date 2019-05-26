@@ -1,14 +1,25 @@
 import { Action } from '@ngrx/store';
-import { MopidyLibraryBrowseRefreshParams, Ref } from '../../shared/types/mopidy';
+import {
+    MopidyLibraryBrowseRefreshParams,
+    MopidyLibraryGetImagesParams,
+    MopidyLibraryGetImagesResponse,
+    Ref,
+    Track,
+} from '../../shared/types/mopidy';
 
 export enum LibraryActionTypes {
     GET_ROOT_DIRECTORIES = '[Library] Get Root Directories',
     GET_ROOT_DIRECTORIES_SUCCESS = '[Library] Get Root Directories Success',
+    GET_LOCAL_ARTISTS = '[Library] Get Local Artists',
+    GET_LOCAL_ARTISTS_SUCCESS = '[Library] Get Local Artists Success',
+    GET_LOCAL_ALBUMS = '[Library] Get Local Albums',
+    GET_LOCAL_ALBUMS_SUCCESS = '[Library] Get Local Albums Success',
+    GET_LOCAL_TRACKS = '[Library] Get Local Tracks',
+    GET_LOCAL_TRACKS_SUCCESS = '[Library] Get Local Tracks Success',
     BROWSE_LOCAL = '[Library] Browse Local',
     BROWSE = '[Library] Browse',
     BROWSE_BACK = '[Library] Browse Back',
     BROWSE_SUCCESS = '[Library] Browse Success',
-    BROWSE_BACK_SUCCESS = '[Library] Browse Back Success',
     SEARCH = '[Library] Search',
     SEARCH_SUCCESS = '[Library] Search Success',
     LOOKUP = '[Library] Lookup',
@@ -30,6 +41,40 @@ export class GetRootDirectoriesSuccess implements Action {
     readonly type = LibraryActionTypes.GET_ROOT_DIRECTORIES_SUCCESS;
 
     constructor(public payload: Ref[]) {}
+}
+
+export class GetLocalArtists implements Action {
+    readonly type = LibraryActionTypes.GET_LOCAL_ARTISTS;
+}
+
+export class GetLocalArtistsSuccess implements Action {
+    readonly type = LibraryActionTypes.GET_LOCAL_ARTISTS_SUCCESS;
+
+    constructor(public payload: Ref[]) {}
+}
+
+export class GetLocalAlbums implements Action {
+    readonly type = LibraryActionTypes.GET_LOCAL_ALBUMS;
+
+    constructor(public payload: string) {}
+}
+
+export class GetLocalAlbumsSuccess implements Action {
+    readonly type = LibraryActionTypes.GET_LOCAL_ALBUMS_SUCCESS;
+
+    constructor(public payload: Ref[]) {}
+}
+
+export class GetLocalTracks implements Action {
+    readonly type = LibraryActionTypes.GET_LOCAL_TRACKS;
+
+    constructor(public payload: string) {}
+}
+
+export class GetLocalTracksSuccess implements Action {
+    readonly type = LibraryActionTypes.GET_LOCAL_TRACKS_SUCCESS;
+
+    constructor(public payload: Track[]) {}
 }
 
 export class BrowseLocal implements Action {
@@ -54,10 +99,30 @@ export class BrowseSuccess implements Action {
     constructor(public payload: Ref[]) {}
 }
 
+export class GetImages  implements Action {
+    readonly type = LibraryActionTypes.GET_IMAGES;
+
+    constructor(public payload: MopidyLibraryGetImagesParams) {}
+}
+
+export class GetImagesSuccess implements Action {
+    readonly type = LibraryActionTypes.GET_IMAGES_SUCCESS;
+
+    constructor(public payload: MopidyLibraryGetImagesResponse) {}
+}
+
 export type LibraryActionsUnion =
     GetRootDirectories
     | GetRootDirectoriesSuccess
+    | GetLocalArtists
+    | GetLocalArtistsSuccess
+    | GetLocalAlbums
+    | GetLocalAlbumsSuccess
+    | GetLocalTracks
+    | GetLocalTracksSuccess
     | BrowseLocal
     | Browse
     | BrowseSuccess
-    | BrowseBack;
+    | BrowseBack
+    | GetImages
+    | GetImagesSuccess;

@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { Ref } from '../../shared/types/mopidy';
 import { LibraryActionsUnion, LibraryActionTypes } from './library.actions';
-import { LibraryState } from './library.state';
+import { ImageUris, LibraryState } from './library.state';
 import { ApplicationState } from '../application/application.state';
 
 export const initialLibraryState: LibraryState = {
@@ -9,8 +9,14 @@ export const initialLibraryState: LibraryState = {
     spotifyWebDirectoryUri: 'spotifyweb:directory',
     rootDirectories: [],
     childDirectories: [],
+    songs: {
+        artists: [],
+        albums: [],
+        tracks: [],
+    },
     currentDirectoryUri: '',
     previousDirectoryUris: [],
+    images: {},
 };
 
 export function libraryReducer(state: LibraryState = initialLibraryState, action: LibraryActionsUnion): LibraryState {
@@ -19,6 +25,30 @@ export function libraryReducer(state: LibraryState = initialLibraryState, action
             return {
                 ...state,
                 rootDirectories: action.payload,
+            };
+        case LibraryActionTypes.GET_LOCAL_ARTISTS_SUCCESS:
+            return {
+                ...state,
+                songs: {
+                    ...state.songs,
+                    artists: action.payload,
+                },
+            };
+        case LibraryActionTypes.GET_LOCAL_ALBUMS_SUCCESS:
+            return {
+                ...state,
+                songs: {
+                    ...state.songs,
+                    albums: action.payload,
+                },
+            };
+        case LibraryActionTypes.GET_LOCAL_TRACKS_SUCCESS:
+            return {
+                ...state,
+                songs: {
+                    ...state.songs,
+                    tracks: action.payload,
+                },
             };
         case LibraryActionTypes.BROWSE:
             return {
@@ -42,6 +72,22 @@ export function libraryReducer(state: LibraryState = initialLibraryState, action
                 ...state,
                 childDirectories: action.payload,
             };
+        case LibraryActionTypes.GET_IMAGES_SUCCESS:
+            const imageUris: ImageUris = Object.keys(action.payload).reduce(
+                (acc: ImageUris, curr: string) => ({
+                    ...acc,
+                    [curr]: [...action.payload[curr]].sort((imageA, imageB) =>
+                        (imageA.height * imageA.width) < (imageB.height * imageB.width) ? 1 : -1)[0].uri,
+                }),
+                {},
+            );
+            return {
+                ...state,
+                images: {
+                    ...state.images,
+                    ...imageUris,
+                }
+            };
         default:
             return state;
     }
@@ -50,7 +96,10 @@ export function libraryReducer(state: LibraryState = initialLibraryState, action
 export const selectLibraryState = createFeatureSelector<ApplicationState, LibraryState>('library');
 
 export const selectRootDirectories = createSelector(selectLibraryState, (state: LibraryState) => state.rootDirectories);
-export const selectCurrentDirectories = createSelector(selectLibraryState, (state: LibraryState) => state.childDirectories);
+export const selectChildDirectories = createSelector(selectLibraryState, (state: LibraryState) => state.childDirectories);
+export const selectArtists = createSelector(selectLibraryState, (state: LibraryState) => state.songs.artists);
+export const selectAlbums = createSelector(selectLibraryState, (state: LibraryState) => state.songs.albums);
+export const selectTracks = createSelector(selectLibraryState, (state: LibraryState) => state.songs.tracks);
 export const selectPreviousDirectoryUris = createSelector(selectLibraryState, (state: LibraryState) => state.previousDirectoryUris);
 export const selectLocalDirectoryExists = createSelector(
     selectLibraryState,
@@ -60,3 +109,4 @@ export const selectSpotifyWebDirectoryExists = createSelector(
     selectLibraryState,
     (state: LibraryState) => !!state.rootDirectories.find((directory: Ref) => directory.uri === state.spotifyWebDirectoryUri),
 );
+export const selectImages = createSelector(selectLibraryState, (state: LibraryState) => state.images);

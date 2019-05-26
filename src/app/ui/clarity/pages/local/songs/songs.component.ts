@@ -3,8 +3,8 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Ref, Track } from '../../../../../shared/types/mopidy';
 import { ApplicationState } from '../../../../../store/application/application.state';
-import * as LocalActions from '../../../../../store/local/local.actions';
-import * as fromLocalReducer from '../../../../../store/local/local.reducer';
+import * as LibraryActions from '../../../../../store/library/library.actions';
+import * as fromLibraryReducer from '../../../../../store/library/library.reducer';
 import * as TracklistActions from '../../../../../store/tracklist/tracklist.actions';
 
 @Component({
@@ -21,19 +21,19 @@ export class SongsComponent implements OnInit {
     constructor(private store: Store<ApplicationState>) {}
 
     public ngOnInit(): void {
-        this.artists$ = this.store.select(fromLocalReducer.selectArtists);
-        this.albums$ = this.store.select(fromLocalReducer.selectAlbums);
-        this.tracks$ = this.store.select(fromLocalReducer.selectTracks);
+        this.artists$ = this.store.select(fromLibraryReducer.selectArtists);
+        this.albums$ = this.store.select(fromLibraryReducer.selectAlbums);
+        this.tracks$ = this.store.select(fromLibraryReducer.selectTracks);
 
-        this.store.dispatch(new LocalActions.GetRootDirectories());
+        this.store.dispatch(new LibraryActions.GetLocalArtists());
     }
 
     public getAlbums(uri: string): void {
-        this.store.dispatch(new LocalActions.GetAlbums(uri));
+        this.store.dispatch(new LibraryActions.GetLocalAlbums(uri));
     }
 
     public getTracks(uri: string): void {
-        this.store.dispatch(new LocalActions.GetTracks(uri));
+        this.store.dispatch(new LibraryActions.GetLocalTracks(uri));
     }
 
     public queueNow(tracks: Track[]): void {

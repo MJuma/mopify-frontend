@@ -4,7 +4,7 @@ import { from, of, timer } from 'rxjs';
 import { filter, map, mergeMap, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { MopidyService } from '../../shared/services/mopidy.service';
 import { MopidyPlaybackSeekParams, PlaybackState, TlTrack, Track } from '../../shared/types/mopidy';
-import * as LocalActions from '../local/local.actions';
+import * as LibraryActions from '../library/library.actions';
 import { PlayerActionsUnion, PlayerActionTypes } from './player.actions';
 import * as PlayerActions from './player.actions';
 // import * as LyricsActions from '../lyrics/lyrics.actions';
@@ -24,7 +24,7 @@ export class PlayerEffects {
         ofType(PlayerActionTypes.GET_CURRENT_TRACK_SUCCESS),
         map(({ payload }: PlayerActions.GetCurrentTrackSuccess) => payload),
         mergeMap((track: Track | undefined) => track ? [
-            new LocalActions.GetImages({uris: [track.uri]}),
+            new LibraryActions.GetImages({uris: [track.uri]}),
             // new LyricsActions.GetLyrics(track),
         ] : []),
     );

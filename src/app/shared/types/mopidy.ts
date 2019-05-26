@@ -97,7 +97,7 @@ export interface SearchResult {
 }
 
 export type SearchQuery = {
-    [field in SearchField]?: string;
+    [field in SearchField]?: string[];
 };
 
 export interface MopidyTracklistAddParams {
