@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 import { MopidyMixerSetMuteParams, MopidyMixerSetVolumeParams } from '../../shared/types/mopidy';
 
 export enum MixerActionTypes {
+    TOGGLE_MUTE = '[Mixer] Toggle Mute',
     GET_MUTE = '[Mixer] Get Mute',
     GET_MUTE_SUCCESS = '[Mixer] Get Mute Success',
     SET_MUTE = '[Mixer] Set Mute',
@@ -10,6 +11,10 @@ export enum MixerActionTypes {
     GET_VOLUME_SUCCESS = '[Mixer] Get Volume Success',
     SET_VOLUME = '[Mixer] Set Volume',
     SET_VOLUME_SUCCESS = '[Mixer] Set Volume Success',
+}
+
+export class ToggleMute implements Action {
+    readonly type = MixerActionTypes.TOGGLE_MUTE;
 }
 
 export class GetMute implements Action {
@@ -57,7 +62,8 @@ export class SetVolumeSuccess implements Action {
 }
 
 export type MixerActionsUnion =
-    GetMute
+    ToggleMute
+    | GetMute
     | GetMuteSuccess
     | SetMute
     | SetMuteSuccess

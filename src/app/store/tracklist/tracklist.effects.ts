@@ -89,6 +89,13 @@ export class TracklistEffects {
     );
 
     @Effect()
+    readonly toggleConsume$ = this.actions.pipe(
+        ofType(TracklistActionTypes.TOGGLE_CONSUME),
+        switchMap(() => from(this.mopidy.tracklist().getConsume())),
+        map((consumeMode: boolean) => new TracklistActions.SetConsume({value: !consumeMode})),
+    );
+
+    @Effect()
     readonly getConsume$ = this.actions.pipe(
         ofType(TracklistActionTypes.GET_CONSUME),
         switchMap(() => from(this.mopidy.tracklist().getConsume())),

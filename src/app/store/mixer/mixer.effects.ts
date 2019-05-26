@@ -11,6 +11,13 @@ import * as MixerActions from './mixer.actions';
 export class MixerEffects {
 
     @Effect()
+    readonly toggleMute$ = this.actions$.pipe(
+        ofType(MixerActionTypes.TOGGLE_MUTE),
+        switchMap(() => from(this.mopidy.mixer().getMute())),
+        map((muteState: boolean | undefined) => new MixerActions.SetMute({mute: !muteState})),
+    );
+
+    @Effect()
     readonly getMute$ = this.actions$.pipe(
         ofType(MixerActionTypes.GET_MUTE),
         switchMap(() => from(this.mopidy.mixer().getMute())),

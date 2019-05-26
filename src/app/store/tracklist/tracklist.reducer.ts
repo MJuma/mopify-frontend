@@ -55,7 +55,6 @@ export function tracklistReducer(state: TracklistState = initialTracklistState, 
 export const selectTracklistState = createFeatureSelector<ApplicationState, TracklistState>('tracklist');
 
 export const selectTlTracks = createSelector(selectTracklistState, (state: TracklistState) => state.tlTracks);
-export const selectTracks = createSelector(selectTracklistState, (state: TracklistState) => state.tracks);
 export const selectIndex = createSelector(selectTracklistState, (state: TracklistState) => state.index);
 
 export const selectShuffleState = createSelector(
@@ -73,3 +72,5 @@ export const selectRepeatState = createSelector(
             : RepeatState.ALL
         : RepeatState.OFF,
 );
+
+export const selectConsume = createSelector(selectTracklistState, (state: TracklistState) => state.consumeMode);

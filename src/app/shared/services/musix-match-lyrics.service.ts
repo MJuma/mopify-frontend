@@ -18,6 +18,7 @@ export class MusixMatchLyricsService {
         const params: HttpParams = new HttpParams()
             .set('q_track', title)
             .set('q_artist', artist)
+            .set('s_track_rating', 'desc')
             .set('apikey', environment.lyrics.musixmatch.apiKey);
         return this.http.get<MusixMatchResponse<TrackList>>(`${this.hostname}${this.searchEndpoint}`, {params});
     }

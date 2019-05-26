@@ -41,6 +41,7 @@ export enum TracklistActionTypes {
     // Future State
 
     // Options
+    TOGGLE_CONSUME = '[Tracklist] Toggle Consume',
     GET_CONSUME = '[Tracklist] Get Consume',
     GET_CONSUME_SUCCESS = '[Tracklist] Get Consume Success',
     SET_CONSUME = '[Tracklist] Set Consume',
@@ -150,6 +151,10 @@ export class IndexSuccess implements Action {
     constructor(public payload: number) {}
 }
 
+export class ToggleConsume implements Action {
+    readonly type = TracklistActionTypes.TOGGLE_CONSUME;
+}
+
 export class GetConsume implements Action {
     readonly type = TracklistActionTypes.GET_CONSUME;
 }
@@ -240,6 +245,7 @@ export type TracklistActionsUnion =
     | GetTlTracksSuccess
     | Index
     | IndexSuccess
+    | ToggleConsume
     | GetConsume
     | GetConsumeSuccess
     | SetConsume

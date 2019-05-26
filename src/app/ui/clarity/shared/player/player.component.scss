@@ -1,13 +1,64 @@
 :host {
     flex: 0 0 10%;
-    background-color: #D9E4EA;
+    background-color: #DDDDDD;
     padding: 20px 40px;
 
     .controls {
         display: flex;
         flex-direction: row;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
+
+        .left-controls {
+            display: flex;
+            flex-direction: row;
+
+            .volume-slider {
+                -webkit-appearance: none;
+                height: 15px;
+                background: #EEEEEE;
+                outline: none;
+                opacity: 0.8;
+                -webkit-transition: .2s;
+                transition: opacity .2s;
+
+                &:hover {
+                    opacity: 1;
+                }
+
+                &::-webkit-slider-thumb {
+                    -webkit-appearance: none;
+                    appearance: none;
+                    width: 15px;
+                    height: 15px;
+                    background: #0079B8;
+                    cursor: pointer;
+                }
+
+                &::-moz-range-thumb {
+                    width: 15px;
+                    height: 15px;
+                    background: #0079B8;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .center-controls {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .right-controls {
+            display: flex;
+            flex-direction: column;
+
+            clr-toggle-wrapper {
+
+            }
+        }
 
         clr-icon {
             margin: 0 8px;
@@ -27,6 +78,17 @@
         label {
             margin: 0 8px;
             min-width: 30px;
+        }
+
+        progress {
+            opacity: 0.8;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 1;
+            }
         }
     }
 }

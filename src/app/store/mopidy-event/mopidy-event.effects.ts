@@ -23,6 +23,8 @@ export class MopidyEventEffects {
             new PlayerActions.GetCurrentTrack(),
             new PlayerActions.GetTimePosition(),
             new PlayerActions.GetPlaybackState(),
+            new MixerActions.GetVolume(),
+            new MixerActions.GetMute(),
         ]),
     );
 
@@ -36,7 +38,7 @@ export class MopidyEventEffects {
         ofType('[Mopidy Event] Event: Mute Changed'),
         map(({ payload }: MopidyEventActions.MuteChanged) => payload.mute),
         mergeMap((mute: boolean) => [
-            new MixerActions.SetMuteSuccess(mute),
+            new MixerActions.GetMuteSuccess(mute),
         ]),
     );
 

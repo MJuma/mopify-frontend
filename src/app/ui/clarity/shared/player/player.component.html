@@ -1,20 +1,40 @@
 <div class="controls">
-    <ng-container [ngSwitch]="(shuffleState$ | async)">
-        <clr-icon *ngSwitchCase="shuffleStates.OFF" appSolidHover shape="shuffle" size="24" (click)="toggleShuffle()"></clr-icon>
-        <clr-icon *ngSwitchCase="shuffleStates.ON" appSolidHover shape="shuffle" size="24" class="text-primary" (click)="toggleShuffle()"></clr-icon>
-    </ng-container>
-    <clr-icon appSolidHover shape="step-forward" size="32" flip="horizontal" (click)="back()"></clr-icon>
-    <ng-container [ngSwitch]="(playbackState$ | async)">
-        <clr-icon *ngSwitchCase="playbackStates.PLAYING" appSolidHover shape="pause" size="48" (click)="togglePlayPause()"></clr-icon>
-        <clr-icon *ngSwitchCase="playbackStates.PAUSED" appSolidHover shape="play" size="48" (click)="togglePlayPause()"></clr-icon>
-        <clr-icon *ngSwitchCase="playbackStates.STOPPED" appSolidHover shape="play" size="48" (click)="togglePlayPause()"></clr-icon>
-    </ng-container>
-    <clr-icon appSolidHover shape="step-forward" size="32" (click)="forward()"></clr-icon>
-    <ng-container [ngSwitch]="(repeatState$ | async)">
-        <clr-icon *ngSwitchCase="repeatStates.OFF" appSolidHover shape="replay-all" size="24" (click)="toggleRepeat()"></clr-icon>
-        <clr-icon *ngSwitchCase="repeatStates.SINGLE" appSolidHover shape="replay-one" size="24" class="text-primary" (click)="toggleRepeat()"></clr-icon>
-        <clr-icon *ngSwitchCase="repeatStates.ALL" appSolidHover shape="replay-all" size="24" class="text-primary" (click)="toggleRepeat()"></clr-icon>
-    </ng-container>
+    <div class="left-controls">
+        <clr-icon *ngIf="(mute$ | async); else lowVolume" appSolidHover shape="volume-mute" size="16" (click)="toggleMute()"></clr-icon>
+        <ng-template #lowVolume>
+            <clr-icon *ngIf="(volume$ | async) < 50; else highVolume" appSolidHover shape="volume-down" size="16" (click)="toggleMute()"></clr-icon>
+        </ng-template>
+        <ng-template #highVolume>
+            <clr-icon appSolidHover shape="volume-up" size="16" (click)="toggleMute()"></clr-icon>
+        </ng-template>
+        <input #volume type="range" min="1" max="100" class="volume-slider" [value]="(volume$ | async)" (change)="setVolume(volume.value)">
+    </div>
+
+    <div class="center-controls">
+        <ng-container [ngSwitch]="(shuffleState$ | async)">
+            <clr-icon *ngSwitchCase="shuffleStates.OFF" appSolidHover shape="shuffle" size="24" (click)="toggleShuffle()"></clr-icon>
+            <clr-icon *ngSwitchCase="shuffleStates.ON" appSolidHover shape="shuffle" size="24" class="text-primary" (click)="toggleShuffle()"></clr-icon>
+        </ng-container>
+        <clr-icon appSolidHover shape="step-forward" size="32" flip="horizontal" (click)="back()"></clr-icon>
+        <ng-container [ngSwitch]="(playbackState$ | async)">
+            <clr-icon *ngSwitchCase="playbackStates.PLAYING" appSolidHover shape="pause" size="48" (click)="togglePlayPause()"></clr-icon>
+            <clr-icon *ngSwitchCase="playbackStates.PAUSED" appSolidHover shape="play" size="48" (click)="togglePlayPause()"></clr-icon>
+            <clr-icon *ngSwitchCase="playbackStates.STOPPED" appSolidHover shape="play" size="48" (click)="togglePlayPause()"></clr-icon>
+        </ng-container>
+        <clr-icon appSolidHover shape="step-forward" size="32" (click)="forward()"></clr-icon>
+        <ng-container [ngSwitch]="(repeatState$ | async)">
+            <clr-icon *ngSwitchCase="repeatStates.OFF" appSolidHover shape="replay-all" size="24" (click)="toggleRepeat()"></clr-icon>
+            <clr-icon *ngSwitchCase="repeatStates.SINGLE" appSolidHover shape="replay-one" size="24" class="text-primary" (click)="toggleRepeat()"></clr-icon>
+            <clr-icon *ngSwitchCase="repeatStates.ALL" appSolidHover shape="replay-all" size="24" class="text-primary" (click)="toggleRepeat()"></clr-icon>
+        </ng-container>
+    </div>
+
+    <div class="right-controls">
+        <clr-toggle-wrapper>
+            <input type="checkbox" clrToggle [checked]="(consume$ | async)" (change)="toggleConsume()" />
+            <label>Consume</label>
+        </clr-toggle-wrapper>
+    </div>
 </div>
 <div class="track-progress">
     <label>{{(timePosition$ | async) | songLength}}</label>

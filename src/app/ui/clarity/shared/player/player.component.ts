@@ -5,8 +5,10 @@ import { PlaybackState, PlaybackStates, Track } from '../../../../shared/types/m
 import { ApplicationState } from '../../../../store/application/application.state';
 import * as PlayerActions from '../../../../store/player/player.actions';
 import * as TracklistActions from '../../../../store/tracklist/tracklist.actions';
+import * as MixerActions from '../../../../store/mixer/mixer.actions';
 import * as fromPlayerReducer from '../../../../store/player/player.reducer';
 import * as fromTracklistReducer from '../../../../store/tracklist/tracklist.reducer';
+import * as fromMixerReducer from '../../../../store/mixer/mixer.reducer';
 import { RepeatState, ShuffleState } from '../../../../store/tracklist/tracklist.state';
 
 @Component({
@@ -25,6 +27,9 @@ export class PlayerComponent implements OnInit {
     public playbackState$: Observable<PlaybackState>;
     public shuffleState$: Observable<ShuffleState>;
     public repeatState$: Observable<RepeatState>;
+    public consume$: Observable<boolean>;
+    public volume$: Observable<number | undefined>;
+    public mute$: Observable<boolean | undefined>;
 
     constructor(private store: Store<ApplicationState>) {
     }
@@ -35,6 +40,9 @@ export class PlayerComponent implements OnInit {
         this.playbackState$ = this.store.select(fromPlayerReducer.selectPlaybackState);
         this.shuffleState$ = this.store.select(fromTracklistReducer.selectShuffleState);
         this.repeatState$ = this.store.select(fromTracklistReducer.selectRepeatState);
+        this.consume$ = this.store.select(fromTracklistReducer.selectConsume);
+        this.volume$ = this.store.select(fromMixerReducer.selectVolume);
+        this.mute$ = this.store.select(fromMixerReducer.selectMuteState);
     }
 
     public togglePlayPause(): void {
@@ -59,5 +67,17 @@ export class PlayerComponent implements OnInit {
 
     public seek(seekPosition: number): void {
         this.store.dispatch(new PlayerActions.Seek({ time_position: seekPosition }));
+    }
+
+    public setVolume(volume: string): void {
+        this.store.dispatch(new MixerActions.SetVolume({volume: +volume}));
+    }
+
+    public toggleMute(): void {
+        this.store.dispatch(new MixerActions.ToggleMute());
+    }
+
+    public toggleConsume(): void {
+        this.store.dispatch(new TracklistActions.ToggleConsume());
     }
 }
