@@ -5,4 +5,9 @@ export interface LocalState {
     tracks: Track[];
     artists: Ref[];
     albums: Ref[];
+    images: ImageUris;
+}
+
+export interface ImageUris {
+    [uri: string]: string;
 }

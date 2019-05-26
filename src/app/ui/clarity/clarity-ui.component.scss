@@ -1,8 +1,16 @@
-.music-nav {
-    order: unset !important;
-}
-
 section {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+
+    article {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        flex: 1 1;
+    }
+
+    app-music-nav {
+        flex: 0 0 20%;
+    }
 }

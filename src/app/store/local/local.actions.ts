@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { MopidyLibrarySearchParams, Ref, Track } from '../../shared/types/mopidy';
+import { MopidyLibraryGetImagesParams, MopidyLibraryGetImagesResponse, Ref, Track } from '../../shared/types/mopidy';
 import { MopidyDirectoriesMap } from '../../shared/types/mopidy-directories-map';
 
 export enum LocalActionTypes {
@@ -7,14 +7,14 @@ export enum LocalActionTypes {
     GET_ROOT_DIRECTORIES_SUCCESS = '[Local] Get Root Directories Success',
     GET_DIRECTORY = '[Local] Get Directory',
     GET_DIRECTORY_SUCCESS = '[Local] Get Directory Success',
-    SEARCH_LIBRARY = '[Local] Search Library',
     GET_ARTISTS = '[Local] Get Artists',
     GET_ARTISTS_SUCCESS = '[Local] Get Artists Success',
     GET_ALBUMS = '[Local] Get Albumns',
     GET_ALBUMS_SUCCESS = '[Local] Get Albums Success',
     GET_TRACKS = '[Local] Get Tracks',
     GET_TRACKS_SUCCESS = '[Local] Get Tracks Success',
-    PLAY_TRACK = '[Local] Play Track',
+    GET_IMAGES = '[Local] Get Images',
+    GET_IMAGES_SUCCESS = '[Local] Get Images Success',
 }
 
 export class GetRootDirectories implements Action {
@@ -37,12 +37,6 @@ export class GetDirectorySuccess implements Action {
     readonly type = LocalActionTypes.GET_DIRECTORY_SUCCESS;
 
     constructor(public payload: MopidyDirectoriesMap) {}
-}
-
-export class SearchLibrary implements Action {
-    readonly type = LocalActionTypes.SEARCH_LIBRARY;
-
-    constructor(public payload: MopidyLibrarySearchParams) {}
 }
 
 export class GetArtists implements Action {
@@ -81,10 +75,16 @@ export class GetTracksSuccess implements Action {
     constructor(public payload: Track[]) {}
 }
 
-export class PlayTrack implements Action {
-    readonly type = LocalActionTypes.PLAY_TRACK;
+export class GetImages  implements Action {
+    readonly type = LocalActionTypes.GET_IMAGES;
 
-    constructor(public payload: string) {}
+    constructor(public payload: MopidyLibraryGetImagesParams) {}
+}
+
+export class GetImagesSuccess implements Action {
+    readonly type = LocalActionTypes.GET_IMAGES_SUCCESS;
+
+    constructor(public payload: MopidyLibraryGetImagesResponse) {}
 }
 
 export type LocalActionsUnion =
@@ -98,4 +98,5 @@ export type LocalActionsUnion =
     | GetAlbumsSuccess
     | GetTracks
     | GetTracksSuccess
-    | PlayTrack;
+    | GetImages
+    | GetImagesSuccess;

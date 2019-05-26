@@ -36,10 +36,6 @@ export class SongsComponent implements OnInit {
         this.store.dispatch(new LocalActions.GetTracks(uri));
     }
 
-    public playTrack(uri: string): void {
-        this.store.dispatch(new LocalActions.PlayTrack(uri));
-    }
-
     public queueNext(tracks: Track[]): void {
         this.store.dispatch(new TracklistActions.QueueNext(tracks));
     }

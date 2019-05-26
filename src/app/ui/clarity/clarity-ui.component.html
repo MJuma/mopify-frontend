@@ -4,16 +4,16 @@
     </header>
     <main class="content-container">
         <section>
-            <article class="content-area">
-                <router-outlet></router-outlet>
+            <article>
+                <div class="content-area">
+                    <router-outlet></router-outlet>
+                </div>
+                <app-player></app-player>
             </article>
-            <app-player></app-player>
+            <app-music-nav></app-music-nav>
         </section>
         <clr-vertical-nav class="nav-trigger--bottom" [clrVerticalNavCollapsible]="true">
             <app-side-nav></app-side-nav>
-        </clr-vertical-nav>
-        <clr-vertical-nav class="nav-trigger--bottom music-nav">
-            <app-music-nav></app-music-nav>
         </clr-vertical-nav>
     </main>
 </div>

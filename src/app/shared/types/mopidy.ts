@@ -32,7 +32,7 @@ export interface Track {
     readonly uri: string;
     readonly name: string;
     readonly artists: Artist[];
-    readonly album: Album[];
+    readonly album: Album;
     readonly composers: Artist[];
     readonly performers: Artist[];
     readonly genre: string;
@@ -73,8 +73,8 @@ export interface Playlist {
 
 export interface Image {
     readonly uri: string;
-    readonly height: number | undefined;
-    readonly width: number | undefined;
+    readonly height: number;
+    readonly width: number;
 }
 
 export interface TlTrack {
@@ -167,7 +167,7 @@ export interface MopidyLibraryGetImagesParams {
 }
 
 export interface MopidyLibraryGetImagesResponse {
-    [uri: string]: Image;
+    [uri: string]: Image[];
 }
 
 export interface MopidyLibraryGetDistinctParams {

@@ -3,7 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { forkJoin, from, Observable } from 'rxjs';
 import { concatMap, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 import { MopidyService } from '../../shared/services/mopidy/mopidy.service';
-import { Ref, SearchResult, TlTrack, Track } from '../../shared/types/mopidy';
+import { MopidyLibraryGetImagesParams, MopidyLibraryGetImagesResponse, Ref, SearchResult, Track } from '../../shared/types/mopidy';
 import { LocalActionTypes } from './local.actions';
 import * as LocalActions from './local.actions';
 
@@ -60,23 +60,6 @@ export class LocalEffects {
     );
 
     @Effect({ dispatch: false })
-    readonly playTrack$ = this.actions$.pipe(
-        ofType(LocalActionTypes.PLAY_TRACK),
-        map((action: LocalActions.PlayTrack) => action.payload),
-        switchMap((uri: string) => from(this.mopidy.tracklist().add({ uri }))),
-        tap((tlTracks: TlTrack[]) => this.mopidy.playback().play({ tl_track: tlTracks[0] })),
-    );
-
-    /*@Effect()
-    readonly getRootDirectoriesSuccess$ = this.actions$.pipe(
-        ofType(LocalActionTypes.GET_ROOT_DIRECTORIES_SUCCESS),
-        map((action: LocalActions.GetRootDirectoriesSuccess) => action.payload),
-        filter((rootDirectories: MopidyDirectoriesMap) => !!rootDirectories['local:directory']),
-        mapTo('local:directory:U2/No%20Line%20On%20The%20Horizon'),
-        map((uri: string) => new LocalActions.GetDirectory(uri)),
-    );*/
-
-    @Effect({ dispatch: false })
     readonly getDirectory$ = this.actions$.pipe(
         ofType(LocalActionTypes.GET_DIRECTORY),
         map((action: LocalActions.GetDirectory) => action.payload),
@@ -95,19 +78,13 @@ export class LocalEffects {
         mergeMap((actions$: Action[]) => actions$),*/
     );
 
-    /*@Effect()
-    readonly searchLibrary$ = this.actions$.pipe(
-        ofType(LocalActionTypes.SEARCH_LIBRARY),
-        map((action: LocalActions.SearchLibrary) => action.payload),
-        mergeMap((params: MopidyLibrarySearchParams) => from(this.mopidy.librarySearch(params))),
-        map((results: SearchResult[]) => results.map((result: SearchResult) => result.tracks)),
-        map((tracksLists: Track[][]) => tracksLists[0]),
-        map((tracks: Track[]) => tracks[0]),
-        map((track: Track) => new LocalActions.AddTrack(track)),
-        // map((tacksLists: any) => [].concat.apply([], tacksLists),
-        // map((tracks: Track[]) => tracks.map((track: Track) => new LocalActions.AddTrack(track)))),
-        // mergeMap((actions$: Action[]) => actions$),
-    );*/
+    @Effect()
+    readonly getImages$ = this.actions$.pipe(
+        ofType(LocalActionTypes.GET_IMAGES),
+        map(({ payload }: LocalActions.GetImages) => payload),
+        switchMap((params: MopidyLibraryGetImagesParams) => from(this.mopidy.library().getImages(params))),
+        map((response: MopidyLibraryGetImagesResponse) => new LocalActions.GetImagesSuccess(response)),
+    );
 
     constructor(private actions$: Actions,
                 private mopidy: MopidyService) {

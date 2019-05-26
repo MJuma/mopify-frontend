@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { from, of, timer } from 'rxjs';
-import { filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { filter, map, mergeMap, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { MopidyService } from '../../shared/services/mopidy/mopidy.service';
 import { MopidyPlaybackSeekParams, PlaybackState, TlTrack, Track } from '../../shared/types/mopidy';
+import * as LocalActions from '../local/local.actions';
 import { PlayerActionsUnion, PlayerActionTypes } from './player.actions';
 import * as PlayerActions from './player.actions';
 
@@ -15,6 +16,15 @@ export class PlayerEffects {
         ofType(PlayerActionTypes.GET_CURRENT_TRACK),
         switchMap(() => from(this.mopidy.playback().getCurrentTrack())),
         map((currentTrack: Track | undefined) => new PlayerActions.GetCurrentTrackSuccess(currentTrack)),
+    );
+
+    @Effect()
+    readonly getCurrentTrackSuccess$ = this.actions$.pipe(
+        ofType(PlayerActionTypes.GET_CURRENT_TRACK_SUCCESS),
+        map(({ payload }: PlayerActions.GetCurrentTrackSuccess) => payload),
+        mergeMap((track: Track | undefined) => track ? [
+            new LocalActions.GetImages({uris: [track.uri]}),
+        ] : []),
     );
 
     @Effect()

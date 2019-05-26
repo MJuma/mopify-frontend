@@ -1,7 +1,7 @@
 <table class="table table-compact">
     <thead>
     <tr>
-        <th class="left" colspan="5">Tracklist</th>
+        <th class="left" colspan="5"><h6>Now playing</h6></th>
         <th></th>
         <th></th>
     </tr>
@@ -43,3 +43,16 @@
     </ng-template>
     </tbody>
 </table>
+
+<div class="current-track-details">
+    <div class="card">
+        <div class="card-img">
+            <img [src]="(images$ | async)[(currentTrack$ | async).uri]">
+        </div>
+        <div class="card-block">
+            <h4 class="card-title">{{(currentTrack$ | async).name}}</h4>
+            <p class="card-text">{{(currentTrack$ | async)?.artists[0].name}}</p>
+            <p class="card-text">{{(currentTrack$ | async)?.album.name}} ({{(currentTrack$ | async)?.date}})</p>
+        </div>
+    </div>
+</div>

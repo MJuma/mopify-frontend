@@ -72,7 +72,8 @@
                     },
                     "configurations": {
                         "production": {
-                            "browserTarget": "music:build:production"
+                            "browserTarget": "music:build:production",
+                            "proxyConfig": "src/proxy.conf.json"
                         }
                     }
                 },

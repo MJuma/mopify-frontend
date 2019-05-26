@@ -1,0 +1,7 @@
+{
+    "/images": {
+        "target": "http://localhost:6680",
+        "secure": false,
+        "logLevel": "debug"
+    }
+}
