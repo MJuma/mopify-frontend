@@ -16,10 +16,6 @@
             &:hover {
                 color: #737373;
             }
-
-            &.text-primary:hover {
-                color: red;
-            }
         }
     }
 
@@ -30,6 +26,7 @@
 
         label {
             margin: 0 8px;
+            min-width: 30px;
         }
     }
 }

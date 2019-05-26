@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { from, of } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { from, of, timer } from 'rxjs';
+import { filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { MopidyService } from '../../shared/services/mopidy/mopidy.service';
-import { PlaybackState, TlTrack, Track } from '../../shared/types/mopidy';
+import { MopidyPlaybackSeekParams, PlaybackState, TlTrack, Track } from '../../shared/types/mopidy';
 import { PlayerActionsUnion, PlayerActionTypes } from './player.actions';
 import * as PlayerActions from './player.actions';
 
@@ -29,6 +29,22 @@ export class PlayerEffects {
         ofType(PlayerActionTypes.GET_TIME_POSITION),
         switchMap(() => from(this.mopidy.playback().getTimePosition())),
         map((timePosition: number | undefined) => new PlayerActions.GetTimePositionSuccess(timePosition))
+    );
+
+    @Effect()
+    readonly pollTimePosition$ = this.actions$.pipe(
+        ofType(PlayerActionTypes.GET_PLAYBACK_STATE_SUCCESS),
+        map(({ payload }: PlayerActions.GetPlaybackStateSuccess) => payload),
+        filter((playbackState: PlaybackState) => playbackState === 'playing'),
+        switchMap(() => timer(0, 250).pipe(
+            takeUntil(this.actions$.pipe(
+                ofType(PlayerActionTypes.GET_PLAYBACK_STATE_SUCCESS),
+                map(({ payload }: PlayerActions.GetPlaybackStateSuccess) => payload),
+                filter((playbackState: PlaybackState) => playbackState !== 'playing'),
+            )),
+            switchMap(() => from(this.mopidy.playback().getTimePosition())),
+            map((timePosition: number | undefined) => new PlayerActions.GetTimePositionSuccess(timePosition)),
+        )),
     );
 
     @Effect()
@@ -91,6 +107,14 @@ export class PlayerEffects {
     readonly stop$ = this.actions$.pipe(
         ofType(PlayerActionTypes.STOP),
         tap(() => this.mopidy.playback().stop()),
+    );
+
+    @Effect()
+    readonly seek$ = this.actions$.pipe(
+        ofType(PlayerActionTypes.SEEK),
+        map(({ payload }: PlayerActions.Seek) => payload),
+        switchMap((params: MopidyPlaybackSeekParams) => from(this.mopidy.playback().seek(params))),
+        map((seekSuccess: boolean) => new PlayerActions.SeekSuccess(seekSuccess)),
     );
 
     constructor(private actions$: Actions,

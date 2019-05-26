@@ -6,11 +6,13 @@ import { CommonPipesModule } from '../../../../shared/pipes/common-pipes.module'
 import { PlayerEffects } from '../../../../store/player/player.effects';
 import { PlayerComponent } from './player.component';
 import { SolidHoverDirective } from './directives/solid-hover.directive';
+import { SeekPositionDirective } from './directives/seek-position.directive';
 
 @NgModule({
     declarations: [
         PlayerComponent,
         SolidHoverDirective,
+        SeekPositionDirective,
     ],
     imports: [
         ClarityModule,

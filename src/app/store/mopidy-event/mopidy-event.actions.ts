@@ -20,8 +20,6 @@ export enum MopidyEventActionTypes {
     VOLUME_CHANGED = '[Mopidy Event] Event: Volume Changed',
 }
 
-export const STATE_ONLINE = '[Mopidy Event] State: Online';
-
 export class StateOnline implements Action {
     readonly type = MopidyEventActionTypes.STATE_ONLINE;
 }
@@ -67,7 +65,7 @@ export class PlaylistLoaded implements Action {
 export class Seeked implements Action {
     readonly type = MopidyEventActionTypes.SEEKED;
 
-    constructor(public playload: {time_position: number}) {}
+    constructor(public payload: {time_position: number}) {}
 }
 
 export class StreamTitleChanged implements Action {

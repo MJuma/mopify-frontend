@@ -56,4 +56,8 @@ export class PlayerComponent implements OnInit {
     public toggleRepeat(): void {
         this.store.dispatch(new TracklistActions.ToggleRepeat());
     }
+
+    public seek(seekPosition: number): void {
+        this.store.dispatch(new PlayerActions.Seek({ time_position: seekPosition }));
+    }
 }

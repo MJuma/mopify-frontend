@@ -166,8 +166,21 @@ export interface MopidyLibraryGetImagesParams {
     uris: string[];
 }
 
-export interface MopidyGetImagesResponse {
+export interface MopidyLibraryGetImagesResponse {
     [uri: string]: Image;
+}
+
+export interface MopidyLibraryGetDistinctParams {
+    field: Field;
+    query: SearchQuery;
+}
+
+export interface MopidyMixerSetMuteParams {
+    mute: boolean;
+}
+
+export interface MopidyMixerSetVolumeParams {
+    volume: number;
 }
 
 export interface Tracklist {
@@ -232,13 +245,43 @@ export interface Library {
     search(params: MopidyLibrarySearchParams): Promise<SearchResult[]>;
     lookup(params: MopidyLibraryLookupParams): Promise<Track[]>;
     refresh(params: MopidyLibraryBrowseRefreshParams): void;
-    getImages(params: MopidyLibraryGetImagesParams): Promise<MopidyGetImagesResponse>;
+    getImages(params: MopidyLibraryGetImagesParams): Promise<MopidyLibraryGetImagesResponse>;
+    getDistinct(params: MopidyLibraryGetDistinctParams): Promise<SearchResult[]>;
+}
+
+export interface Playlists { // TODO FIXME
+    getUriSchemes(): void;
+
+    // Fetching
+    asList(): void;
+    getItems(): void;
+    lookup(): void;
+    refresh(): void;
+
+    // Manipulating
+    create(): void;
+    save(): void;
+    delete(): void;
+}
+
+export interface Mixer {
+    getMute(): Promise<boolean | undefined>;
+    setMute(params: MopidyMixerSetMuteParams): Promise<boolean>;
+    getVolume(): Promise<number | undefined>;
+    setVolume(params: MopidyMixerSetVolumeParams): Promise<boolean>;
+}
+
+export interface History {
+    getHistory(): Promise<[number, Ref][]>;
+    getLength(): Promise<number>;
 }
 
 export interface IMopidy extends EventEmitter {
     tracklist: Tracklist;
     playback: Playback;
     library: Library;
+    mixer: Mixer;
+    history: History;
 
     connect(): void;
     close(): void;

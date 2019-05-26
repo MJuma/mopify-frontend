@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import * as Mopidy from 'mopidy';
 import { ApplicationState } from '../../../store/application/application.state';
 import * as MopidyActions from '../../../store/mopidy/mopidy.actions';
-import { IMopidy, Library, Playback, Tracklist } from '../../types/mopidy';
+import { IMopidy, Library, Mixer, Playback, Tracklist } from '../../types/mopidy';
 
 @Injectable({
     providedIn: 'root'
@@ -72,6 +72,10 @@ export class MopidyService {
 
     public library(): Library {
         return this.mopidy.library;
+    }
+
+    public mixer(): Mixer {
+        return this.mopidy.mixer;
     }
 
     private eventLogger(eventName: string, eventData: object): void {

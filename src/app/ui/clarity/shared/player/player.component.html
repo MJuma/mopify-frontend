@@ -19,7 +19,11 @@
 <div class="track-progress">
     <label>{{(timePosition$ | async) | songLength}}</label>
     <div class="progress">
-        <progress [max]="(currentTrack$ | async)?.length" [value]="(timePosition$ | async)" data-displayval="0%"></progress>
+        <progress appSeekPosition
+                  [currentTrack]="(currentTrack$ | async)"
+                  [max]="(currentTrack$ | async)?.length"
+                  [value]="(timePosition$ | async)"
+                  (seek)="seek($event)"></progress>
     </div>
     <label>{{(currentTrack$ | async)?.length | songLength}}</label>
 </div>

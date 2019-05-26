@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { MopidyPlaybackPlayParams, PlaybackState, Track } from '../../shared/types/mopidy';
+import { MopidyPlaybackPlayParams, MopidyPlaybackSeekParams, PlaybackState, Track } from '../../shared/types/mopidy';
 
 export enum PlayerActionTypes {
     GET_CURRENT_TRACK = '[Player] Get Current Track',
@@ -17,6 +17,8 @@ export enum PlayerActionTypes {
     STOP = '[Player] Stop',
     FORWARD = '[Player] Forward',
     BACK = '[Player] Back',
+    SEEK = '[Player] Seek',
+    SEEK_SUCCESS = '[Player] Seek Success',
 }
 
 export class GetCurrentTrack implements Action {
@@ -89,6 +91,18 @@ export class Back implements Action {
     readonly type = PlayerActionTypes.BACK;
 }
 
+export class Seek implements Action {
+    readonly type = PlayerActionTypes.SEEK;
+
+    constructor(public payload: MopidyPlaybackSeekParams) {}
+}
+
+export class SeekSuccess implements Action {
+    readonly type = PlayerActionTypes.SEEK_SUCCESS;
+
+    constructor(public payload: boolean) {}
+}
+
 export type PlayerActionsUnion =
     | GetCurrentTrack
     | GetCurrentTrackSuccess
@@ -104,4 +118,6 @@ export type PlayerActionsUnion =
     | Resume
     | Stop
     | Forward
-    | Back;
+    | Back
+    | Seek
+    | SeekSuccess;
