@@ -1,0 +1,4 @@
+<app-settings-form
+    [webSocketUrl]="(webSocketUrl$ | async)"
+    (updateUrl)="saveSettingsForm($event)">
+</app-settings-form>

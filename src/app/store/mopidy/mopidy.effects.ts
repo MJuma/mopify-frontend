@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { from } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
-import { MopidyService } from '../../shared/services/mopidy/mopidy.service';
+import { MopidyService } from '../../shared/services/mopidy.service';
 import { MopidyActionTypes } from './mopidy.actions';
 import * as MopidyActions from './mopidy.actions';
 

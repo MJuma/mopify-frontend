@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { from } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { MopidyService } from '../../shared/services/mopidy/mopidy.service';
+import { MopidyService } from '../../shared/services/mopidy.service';
 import { MopidyMixerSetMuteParams, MopidyMixerSetVolumeParams } from '../../shared/types/mopidy';
 import { MixerActionTypes } from './mixer.actions';
 import * as MixerActions from './mixer.actions';

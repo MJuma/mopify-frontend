@@ -1,0 +1,7 @@
+<form clrForm clrLayout="vertical" [formGroup]="settingsForms" (ngSubmit)="updateUrl.emit(settingsForms.value)">
+    <clr-input-container>
+        <label>WebSocket Url</label>
+        <input clrInput type="text" formControlName="webSocketUrl" />
+    </clr-input-container>
+    <button class="btn btn-primary" type="submit">Save</button>
+</form>

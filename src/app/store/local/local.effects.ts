@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { forkJoin, from, Observable } from 'rxjs';
-import { concatMap, map, mergeMap, switchMap, tap } from 'rxjs/operators';
-import { MopidyService } from '../../shared/services/mopidy/mopidy.service';
+import { concatMap, map, mergeMap, switchMap } from 'rxjs/operators';
+import { MopidyService } from '../../shared/services/mopidy.service';
 import { MopidyLibraryGetImagesParams, MopidyLibraryGetImagesResponse, Ref, SearchResult, Track } from '../../shared/types/mopidy';
 import { LocalActionTypes } from './local.actions';
 import * as LocalActions from './local.actions';
@@ -57,25 +57,6 @@ export class LocalEffects {
         map((trackResults: SearchResult[]) => trackResults.map((result: SearchResult) => result.tracks)),
         map((tracksLists: Track[][]) => [].concat.apply([], tracksLists as any)),
         map((tracks: Track[]) => new LocalActions.GetTracksSuccess(tracks)),
-    );
-
-    @Effect({ dispatch: false })
-    readonly getDirectory$ = this.actions$.pipe(
-        ofType(LocalActionTypes.GET_DIRECTORY),
-        map((action: LocalActions.GetDirectory) => action.payload),
-        mergeMap((uri: string) => from(from(this.mopidy.library().browse({ uri }))), 1),
-        tap(x => console.log(x)),
-        /*map((directories: Ref[]) => directories.map((directory: Ref) => {
-            switch (directory.type) {
-                case 'directory':
-                    return new LocalActions.GetDirectory(directory.uri);
-                case 'track':
-                    return new LocalActions.SearchLibrary({query: {uri: directory.uri}});
-                default:
-                    return {type: 'noOp', payload: directory};
-            }
-        })),
-        mergeMap((actions$: Action[]) => actions$),*/
     );
 
     @Effect()

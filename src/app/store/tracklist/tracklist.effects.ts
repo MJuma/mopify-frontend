@@ -3,7 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { from } from 'rxjs';
 import { map, mapTo, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-import { MopidyService } from '../../shared/services/mopidy/mopidy.service';
+import { MopidyService } from '../../shared/services/mopidy.service';
 import {
     MopidyTracklistAddParams,
     MopidyTracklistFilterParams,
@@ -27,14 +27,25 @@ export class TracklistEffects {
         map((tlTracks: TlTrack[]) => new TracklistActions.GetTlTracksSuccess(tlTracks)),
     );
 
+    @Effect({ dispatch: false })
+    readonly queueNow$ = this.actions.pipe(
+        ofType(TracklistActionTypes.QUEUE_NOW),
+        map(({ payload }: TracklistActions.QueueNow) => payload),
+        map((tracks: Track[]) => tracks.map((track: Track) => track.uri)),
+        switchMap((uris: string[]) => from(this.mopidy.tracklist().index({})).pipe(
+            map((index: number) => ({ uris, at_position: ++index }))),
+        ),
+        switchMap((params: MopidyTracklistAddParams) => from(this.mopidy.tracklist().add(params))),
+        tap(() => this.mopidy.playback().next()),
+    );
+
     @Effect()
     readonly queueNext$ = this.actions.pipe(
         ofType(TracklistActionTypes.QUEUE_NEXT),
         map(({ payload }: TracklistActions.QueueNext) => payload),
         map((tracks: Track[]) => tracks.map((track: Track) => track.uri)),
         switchMap((uris: string[]) => from(this.mopidy.tracklist().index({})).pipe(
-            map((index: number) => new TracklistActions.Add({ uris, at_position: ++index })),
-            ),
+            map((index: number) => new TracklistActions.Add({ uris, at_position: ++index }))),
         ),
     );
 

@@ -27,6 +27,7 @@
 
 <app-tracks-table
     [tracks]="(tracks$ | async)"
+    (queueNow)="queueNow($event)"
     (queueNext)="queueNext($event)"
     (queueLast)="queueLast($event)">
 </app-tracks-table>

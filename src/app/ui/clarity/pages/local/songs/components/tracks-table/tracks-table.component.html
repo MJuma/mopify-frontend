@@ -7,8 +7,20 @@
                     <clr-icon shape="caret down"></clr-icon>
                 </button>
                 <clr-dropdown-menu clrPosition="bottom-left" *clrIfOpen>
-                    <button type="button" (click)="queueNext.emit(selectedTracks); selectedTracks = []" clrDropdownItem>Queue Next</button>
-                    <button type="button" (click)="queueLast.emit(selectedTracks); selectedTracks = []" clrDropdownItem>Queue Last</button>
+                    <button type="button" (click)="queueNow.emit(selectedTracks); selectedTracks = []" clrDropdownItem>Queue now</button>
+                    <button type="button" (click)="queueNext.emit(selectedTracks); selectedTracks = []" clrDropdownItem>Queue next</button>
+                    <button type="button" (click)="queueLast.emit(selectedTracks); selectedTracks = []" clrDropdownItem>Queue last</button>
+                </clr-dropdown-menu>
+            </clr-dropdown>
+        </div>
+        <div class="btn-group">
+            <clr-dropdown>
+                <button type="button" class="btn btn-sm btn-secondary" clrDropdownTrigger [disabled]="selectedTracks.length === 0">
+                    Add to playlist
+                    <clr-icon shape="caret down"></clr-icon>
+                </button>
+                <clr-dropdown-menu clrPosition="bottom-left" *clrIfOpen>
+                    <button type="button" clrDropdownItem>Coming soon</button>
                 </clr-dropdown-menu>
             </clr-dropdown>
         </div>

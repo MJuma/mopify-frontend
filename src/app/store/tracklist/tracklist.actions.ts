@@ -9,6 +9,7 @@ import {
 
 export enum TracklistActionTypes {
     // Manipulating
+    QUEUE_NOW = '[Tracklist] Queue Now',
     QUEUE_NEXT = '[Tracklist] Queue Next',
     QUEUE_LAST = '[Tracklist] Queue Last',
     ADD = '[Tracklist] Add',
@@ -54,6 +55,12 @@ export enum TracklistActionTypes {
     SET_SINGLE = '[Tracklist] Set Single',
     TOGGLE_SHUFFLE = '[Tracklist] Toggle Shuffle',
     TOGGLE_REPEAT = '[Tracklist] Toggle Repeat',
+}
+
+export class QueueNow implements Action {
+    readonly type = TracklistActionTypes.QUEUE_NOW;
+
+    constructor(public payload: Track[]) {}
 }
 
 export class QueueNext implements Action {
@@ -216,7 +223,8 @@ export class ToggleRepeat implements Action {
 }
 
 export type TracklistActionsUnion =
-    QueueNext
+    QueueNow
+    | QueueNext
     | QueueLast
     | Add
     | AddSuccess

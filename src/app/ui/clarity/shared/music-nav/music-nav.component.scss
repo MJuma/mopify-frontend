@@ -7,37 +7,42 @@
     table {
         margin-top: 0;
 
-        tbody {
-            display: block;
-            max-height: 300px;
-            overflow: auto;
-        }
         thead, tbody tr {
             display: table;
             width: 100%;
             table-layout: fixed;
         }
 
-        h6 {
-            margin-top: 0;
+        thead {
+            h6 {
+                margin-top: 0;
+            }
         }
 
-        td {
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-        }
+        tbody {
+            display: block;
+            max-height: 300px;
+            overflow: auto;
 
-        .current-track {
-            margin-right: 4px;
-        }
+            td {
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
 
-        .selectable {
-            cursor: pointer;
+                .current-track {
+                    margin-right: 4px;
+                }
+
+                .selectable {
+                    cursor: pointer;
+                }
+            }
         }
     }
 
-    .current-track-details {
-
+    clr-tabs {
+        .card {
+            margin-top: 0;
+        }
     }
 }

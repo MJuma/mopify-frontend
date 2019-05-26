@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { from, of, timer } from 'rxjs';
 import { filter, map, mergeMap, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { MopidyService } from '../../shared/services/mopidy/mopidy.service';
+import { MopidyService } from '../../shared/services/mopidy.service';
 import { MopidyPlaybackSeekParams, PlaybackState, TlTrack, Track } from '../../shared/types/mopidy';
 import * as LocalActions from '../local/local.actions';
 import { PlayerActionsUnion, PlayerActionTypes } from './player.actions';

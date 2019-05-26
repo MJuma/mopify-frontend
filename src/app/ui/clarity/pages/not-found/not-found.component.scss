@@ -1,0 +1,21 @@
+.not-found {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    height: 100%;
+
+    svg {
+        width: 150px;
+        height: 150px;
+
+        path {
+            fill: none;
+            stroke: #0079B8;
+            stroke-miterlimit: 10;
+            stroke-width: 2px;
+            fill-rule: evenodd;
+        }
+    }
+}

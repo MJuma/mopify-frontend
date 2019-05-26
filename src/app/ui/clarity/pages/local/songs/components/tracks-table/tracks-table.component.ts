@@ -12,7 +12,7 @@ export class TracksTableComponent {
 
     @Input() tracks: Track[];
 
-    @Output() selectTracks = new EventEmitter<Track[]>();
+    @Output() queueNow = new EventEmitter<Track[]>();
     @Output() queueNext = new EventEmitter<Track[]>();
     @Output() queueLast = new EventEmitter<Track[]>();
 }

@@ -17,6 +17,10 @@ const routes: Routes = [
                 loadChildren: './pages/local/local.module#LocalModule',
             },
             {
+                path: 'settings',
+                loadChildren: './pages/settings/settings.module#SettingsModule',
+            },
+            {
                 path: '**',
                 component: NotFoundComponent,
             }

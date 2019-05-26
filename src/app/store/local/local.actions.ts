@@ -1,12 +1,9 @@
 import { Action } from '@ngrx/store';
 import { MopidyLibraryGetImagesParams, MopidyLibraryGetImagesResponse, Ref, Track } from '../../shared/types/mopidy';
-import { MopidyDirectoriesMap } from '../../shared/types/mopidy-directories-map';
 
 export enum LocalActionTypes {
     GET_ROOT_DIRECTORIES = '[Local] Get Root Directories',
     GET_ROOT_DIRECTORIES_SUCCESS = '[Local] Get Root Directories Success',
-    GET_DIRECTORY = '[Local] Get Directory',
-    GET_DIRECTORY_SUCCESS = '[Local] Get Directory Success',
     GET_ARTISTS = '[Local] Get Artists',
     GET_ARTISTS_SUCCESS = '[Local] Get Artists Success',
     GET_ALBUMS = '[Local] Get Albumns',
@@ -25,18 +22,6 @@ export class GetRootDirectoriesSuccess implements Action {
     readonly type = LocalActionTypes.GET_ROOT_DIRECTORIES_SUCCESS;
 
     constructor(public payload: Ref[]) {}
-}
-
-export class GetDirectory implements Action {
-    readonly type = LocalActionTypes.GET_DIRECTORY;
-
-    constructor(public payload: string) {}
-}
-
-export class GetDirectorySuccess implements Action {
-    readonly type = LocalActionTypes.GET_DIRECTORY_SUCCESS;
-
-    constructor(public payload: MopidyDirectoriesMap) {}
 }
 
 export class GetArtists implements Action {
@@ -90,8 +75,6 @@ export class GetImagesSuccess implements Action {
 export type LocalActionsUnion =
     | GetRootDirectories
     | GetRootDirectoriesSuccess
-    | GetDirectory
-    | GetDirectorySuccess
     | GetArtists
     | GetArtistsSuccess
     | GetAlbums
