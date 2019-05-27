@@ -1,0 +1,73 @@
+<mat-toolbar>
+    <div class="controls">
+        <div class="left-controls">
+            <button mat-icon-button>
+                <mat-icon *ngIf="(mute$ | async); else volumeOff" (click)="toggleMute()">volume_off</mat-icon>
+            </button>
+            <ng-template #volumeOff>
+                <button mat-icon-button>
+                    <mat-icon *ngIf="(volume$ | async) === 0; else lowVolume" (click)="toggleMute()">volume_mute</mat-icon>
+                </button>
+            </ng-template>
+            <ng-template #lowVolume>
+                <button mat-icon-button>
+                    <mat-icon *ngIf="(volume$ | async) < 50; else highVolume" (click)="toggleMute()">volume_down</mat-icon>
+                </button>
+            </ng-template>
+            <ng-template #highVolume>
+                <button mat-icon-button>
+                    <mat-icon (click)="toggleMute()">volume_up</mat-icon>
+                </button>
+            </ng-template>
+            <mat-slider type="range" min="0" max="100" thumbLabel [value]="(volume$ | async)" (change)="setVolume($event.value)"></mat-slider>
+        </div>
+
+        <div class="center-controls">
+            <button mat-icon-button class="icon-sm" [color]="(shuffleState$ | async) === shuffleStates.ON ? 'primary' : undefined" (click)="toggleShuffle()">
+                <mat-icon>shuffle</mat-icon>
+            </button>
+
+            <button mat-icon-button class="icon-md" (click)="back()">
+                <mat-icon>skip_previous</mat-icon>
+            </button>
+
+            <ng-container [ngSwitch]="(playbackState$ | async)">
+                <button *ngSwitchCase="playbackStates.PLAYING" mat-icon-button class="icon-lg" (click)="togglePlayPause()">
+                    <mat-icon>play_circle_outline</mat-icon>
+                </button>
+                <button *ngSwitchCase="playbackStates.PAUSED" mat-icon-button class="icon-lg" (click)="togglePlayPause()">
+                    <mat-icon>pause_circle_outline</mat-icon>
+                </button>
+                <button *ngSwitchCase="playbackStates.STOPPED" mat-icon-button class="icon-lg" (click)="togglePlayPause()">
+                    <mat-icon>stop</mat-icon>
+                </button>
+            </ng-container>
+
+            <button mat-icon-button class="icon-md" (click)="forward()">
+                <mat-icon>skip_next</mat-icon>
+            </button>
+
+            <ng-container [ngSwitch]="(repeatState$ | async)">
+                <button *ngSwitchCase="repeatStates.OFF" mat-icon-button class="icon-sm" (click)="toggleRepeat()">
+                    <mat-icon>repeat</mat-icon>
+                </button>
+                <button *ngSwitchCase="repeatStates.SINGLE" mat-icon-button class="icon-sm" (click)="toggleRepeat()">
+                    <mat-icon color="primary">repeat_one</mat-icon>
+                </button>
+                <button *ngSwitchCase="repeatStates.ALL" mat-icon-button class="icon-sm" (click)="toggleRepeat()">
+                    <mat-icon color="primary">repeat</mat-icon>
+                </button>
+            </ng-container>
+        </div>
+
+        <div class="right-controls">
+            <mat-slide-toggle [checked]="(consume$ | async)" (change)="toggleConsume()">Consume</mat-slide-toggle>
+        </div>
+    </div>
+
+    <div class="track-progress">
+        <label>{{(timePosition$ | async) | songLength}}</label>
+        <mat-slider min="0" [max]="(currentTrack$ | async)?.length" [value]="(timePosition$ | async)" (change)="seek($event.value)"></mat-slider>
+        <label>{{(currentTrack$ | async)?.length | songLength}}</label>
+    </div>
+</mat-toolbar>

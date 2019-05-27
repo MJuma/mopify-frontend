@@ -1,0 +1,93 @@
+mat-toolbar {
+    position: fixed;
+    bottom: 0;
+    height: 100px;
+    padding: 12px 24px 0 24px;
+
+    display: flex;
+    flex-direction: column;
+
+    mat-icon {
+        cursor: pointer;
+    }
+
+    .controls {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+
+        .left-controls {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .center-controls {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .right-controls {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .icon-lg {
+            width: 48px;
+            height: 48px;
+            line-height: 48px;
+
+            .mat-icon {
+                font-size: 48px;
+                width: 48px;
+                height: 48px;
+                line-height: 48px;
+            }
+        }
+
+        .icon-md {
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+
+            .mat-icon {
+                font-size: 32px;
+                width: 32px;
+                height: 32px;
+                line-height: 32px;
+            }
+        }
+
+        .icon-sm {
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
+
+            .mat-icon {
+                font-size: 24px;
+                width: 24px;
+                height: 24px;
+                line-height: 24px;
+            }
+        }
+    }
+
+    .track-progress {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+
+        label {
+            margin: 0 8px;
+            min-width: 30px;
+        }
+
+        mat-slider {
+            width: 100%;
+        }
+    }
+}

@@ -1,0 +1,38 @@
+<!--<mat-sidenav-container>
+    <mat-sidenav opened mode="side">
+        <mat-toolbar color="primary">Menu</mat-toolbar>
+        <mat-nav-list>
+            <a mat-list-item href="/first-page">First Page</a>
+            <a mat-list-item href="/second-page">Second Page</a>
+            <a mat-list-item href="/third-page">Third Page</a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav opened mode="side" position="end">End content</mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <button type="button" mat-icon-button>
+                <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+            </button>
+            <span>Application Title</span>
+        </mat-toolbar>
+        <label>Pages go here</label>
+    </mat-sidenav-content>
+</mat-sidenav-container>-->
+<ng-container>
+    <app-header></app-header>
+
+    <mat-sidenav-container>
+        <mat-sidenav mode="side" opened fixedInViewport fixedBottomGap="100" fixedTopGap="64">
+            Sidenav
+        </mat-sidenav>
+        <mat-sidenav mode="side" opened position="end" fixedInViewport fixedBottomGap="100" fixedTopGap="64">
+            End content
+        </mat-sidenav>
+
+        <mat-sidenav-content>
+            COntent Goes here
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+
+    <app-player></app-player>
+</ng-container>
