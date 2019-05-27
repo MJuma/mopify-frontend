@@ -1,0 +1,15 @@
+.music-browser {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+
+    mat-card {
+        flex: 1 1 50%;
+        margin-right: 12px;
+        mat-nav-list {
+            overflow-y: auto;
+            height: 250px;
+        }
+    }
+
+}

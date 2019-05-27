@@ -1,3 +1,54 @@
-<p>
-  music-nav works!
-</p>
+<mat-card>
+    <mat-card-title>
+        Now playing
+    </mat-card-title>
+    <mat-card-content>
+        <table>
+            <thead>
+            <tr>
+                <th colspan="3">Title</th>
+                <th colspan="3">Artist</th>
+                <th>
+                    <button mat-icon-button class="icon-sm" (click)="clearTracks()">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngIf="(tlTracks$ | async).length > 0; else noTracks">
+                <tr *ngFor="let tlTrack of (tlTracks$ | async); index as i">
+                    <td colspan="3">
+                        <a class="selectable" (click)="playTrack(tlTrack)"> {{tlTrack.track.name}}</a>
+                    </td>
+                    <td colspan="3">
+                        <label>{{tlTrack.track.artists[0].name}}</label>
+                    </td>
+                    <td>
+                        <button mat-icon-button class="icon-sm" (click)="removeTrack(tlTrack)">
+                            <mat-icon>clear</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </ng-container>
+            <ng-template #noTracks>
+                <tr>
+                    <td>Tracklist empty.</td>
+                </tr>
+            </ng-template>
+            </tbody>
+        </table>
+    </mat-card-content>
+</mat-card>
+
+<mat-card>
+    <img mat-card-image [src]="(images$ | async)[(currentTrack$ | async).uri]">
+    <mat-card-content class="current-track-details">
+        <mat-card-title>{{(currentTrack$ | async).name}}</mat-card-title>
+        <mat-card-subtitle>{{(currentTrack$ | async)?.artists[0].name}}</mat-card-subtitle>
+        <mat-card-subtitle>{{(currentTrack$ | async)?.album.name}} ({{(currentTrack$ | async).date}})</mat-card-subtitle>
+    </mat-card-content>
+</mat-card>
+
+
+

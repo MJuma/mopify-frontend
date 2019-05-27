@@ -1,0 +1,27 @@
+@import '~@angular/material/theming';
+
+.table-action-buttons {
+    button {
+        margin: 0 0 12px 12px;
+    }
+}
+
+.table-container {
+    overflow: auto;
+
+    table {
+        width: 100%;
+
+        .mat-column-select {
+            overflow: initial;
+        }
+
+        .mat-row {
+            cursor: pointer;
+
+            &:hover {
+                background-color: blueviolet;
+            }
+        }
+    }
+}

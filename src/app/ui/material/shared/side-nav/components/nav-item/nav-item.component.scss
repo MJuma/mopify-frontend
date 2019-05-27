@@ -1,0 +1,15 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .mat-list-item.active {
+        // background-color: mat-color($dark-foreground-palette, divider);
+    }
+
+    /*&:hover, &:focus {
+        >.mat-list-item:not(.expanded) {
+            background-color: mat-color($dark-background-palette);
+        }
+    }*/
+}

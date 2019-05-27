@@ -1,3 +1,12 @@
+<main class="mat-app-background">
+    <app-header></app-header>
+    <section>
+        <div class="content"><router-outlet></router-outlet></div>
+        <nav><app-side-nav></app-side-nav></nav>
+        <aside><app-music-nav></app-music-nav></aside>
+    </section>
+    <app-player></app-player>
+</main>
 <!--<mat-sidenav-container>
     <mat-sidenav opened mode="side">
         <mat-toolbar color="primary">Menu</mat-toolbar>
@@ -18,21 +27,3 @@
         <label>Pages go here</label>
     </mat-sidenav-content>
 </mat-sidenav-container>-->
-<ng-container>
-    <app-header></app-header>
-
-    <mat-sidenav-container>
-        <mat-sidenav mode="side" opened fixedInViewport fixedBottomGap="100" fixedTopGap="64">
-            Sidenav
-        </mat-sidenav>
-        <mat-sidenav mode="side" opened position="end" fixedInViewport fixedBottomGap="100" fixedTopGap="64">
-            End content
-        </mat-sidenav>
-
-        <mat-sidenav-content>
-            COntent Goes here
-        </mat-sidenav-content>
-    </mat-sidenav-container>
-
-    <app-player></app-player>
-</ng-container>

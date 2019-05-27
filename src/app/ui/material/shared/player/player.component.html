@@ -1,5 +1,5 @@
 <mat-toolbar>
-    <div class="controls">
+    <mat-toolbar-row class="controls">
         <div class="left-controls">
             <button mat-icon-button>
                 <mat-icon *ngIf="(mute$ | async); else volumeOff" (click)="toggleMute()">volume_off</mat-icon>
@@ -63,11 +63,11 @@
         <div class="right-controls">
             <mat-slide-toggle [checked]="(consume$ | async)" (change)="toggleConsume()">Consume</mat-slide-toggle>
         </div>
-    </div>
+    </mat-toolbar-row>
 
-    <div class="track-progress">
+    <mat-toolbar-row class="track-progress">
         <label>{{(timePosition$ | async) | songLength}}</label>
         <mat-slider min="0" [max]="(currentTrack$ | async)?.length" [value]="(timePosition$ | async)" (change)="seek($event.value)"></mat-slider>
         <label>{{(currentTrack$ | async)?.length | songLength}}</label>
-    </div>
+    </mat-toolbar-row>
 </mat-toolbar>

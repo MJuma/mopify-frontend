@@ -1,0 +1,79 @@
+<div class="table-action-buttons">
+    <button mat-raised-button [matMenuTriggerFor]="queueMenu">
+        Queue
+        <mat-icon>keyboard_arrow_down</mat-icon>
+    </button>
+    <mat-menu #queueMenu="matMenu">
+        <button mat-menu-item (click)="queueNow.emit(selectedTracks.selected); selectedTracks.clear()">Queue Now</button>
+        <button mat-menu-item (click)="queueNext.emit(selectedTracks.selected); selectedTracks.clear()">Queue Next</button>
+        <button mat-menu-item (click)="queueLast.emit(selectedTracks.selected); selectedTracks.clear()">Queue Last</button>
+    </mat-menu>
+    <button mat-raised-button [matMenuTriggerFor]="playlistMenu">
+        Add to playlist
+        <mat-icon>keyboard_arrow_down</mat-icon>
+    </button>
+    <mat-menu #playlistMenu="matMenu">
+        <button mat-menu-item>Coming soon</button>
+    </mat-menu>
+</div>
+
+<div class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="tracks" class="mat-elevation-z8">
+
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? toggleAllTracksSelection() : undefined"
+                              [checked]="selectedTracks.hasValue() && (selectedTracks.selected.length === tracks.length)"
+                              [indeterminate]="selectedTracks.hasValue() && !(selectedTracks.selected.length === tracks.length)">
+                </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()"
+                              (change)="$event ? selectedTracks.toggle(row) : undefined"
+                              [checked]="selectedTracks.isSelected(row)">
+                </mat-checkbox>
+            </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <!-- Track Number Column -->
+        <ng-container matColumnDef="track_no">
+            <th mat-header-cell *matHeaderCellDef>Track #</th>
+            <td mat-cell *matCellDef="let track">{{track.track_no}}</td>
+            <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <!-- Song Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Song</th>
+            <td mat-cell *matCellDef="let track">{{track.name}}</td>
+            <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <!-- Length Column -->
+        <ng-container matColumnDef="length">
+            <th mat-header-cell *matHeaderCellDef>Length</th>
+            <td mat-cell *matCellDef="let track">{{track.length | songLength}}</td>
+            <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <!-- Genre Column -->
+        <ng-container matColumnDef="genre">
+            <th mat-header-cell *matHeaderCellDef>Genre</th>
+            <td mat-cell *matCellDef="let track">{{track.genre}}</td>
+            <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <!-- Year Column -->
+        <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>Year</th>
+            <td mat-cell *matCellDef="let track">{{track.date}}</td>
+            <td mat-footer-cell *matFooterCellDef>{{tracks.length}} songs</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectedTracks.toggle(row)"></tr>
+        <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+    </table>
+</div>

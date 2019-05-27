@@ -1,0 +1,65 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+
+    mat-card {
+        padding: 8px;
+        overflow: hidden;
+
+        table {
+            thead, tbody tr {
+                display: table;
+                width: 100%;
+                table-layout: fixed;
+                text-align: left;
+            }
+
+            tbody {
+                display: block;
+                max-height: 250px;
+                overflow: auto;
+
+                tr {
+                    &:hover {
+                        background-color: blue;
+                    }
+
+                    td {
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow: hidden;
+
+                        .selectable {
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+
+            .icon-sm {
+                width: 16px;
+                height: 16px;
+                line-height: 16px;
+
+                .mat-icon {
+                    font-size: 16px;
+                    width: 16px;
+                    height: 16px;
+                    line-height: 16px;
+                }
+            }
+        }
+
+        .current-track-details {
+            margin: 8px;
+
+            mat-card-subtitle {
+                margin: 0;
+            }
+        }
+    }
+}
+
+

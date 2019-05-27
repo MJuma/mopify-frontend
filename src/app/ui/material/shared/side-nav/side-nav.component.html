@@ -1,3 +1,5 @@
-<p>
-  side-nav works!
-</p>
+<mat-nav-list dense>
+    <app-nav-item *ngFor="let item of topNavItems" [item]="item"></app-nav-item>
+
+    <app-nav-item *ngFor="let item of bottomNavItems" [item]="item"></app-nav-item>
+</mat-nav-list>

@@ -1,0 +1,123 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+@import 'styles/styles-variables';
+@import 'styles/styles-reset.theme';
+
+@import 'themes/default-theme';
+@import 'themes/light-theme';
+@import 'themes/dark-theme';
+@import 'themes/nature-theme';
+
+@mixin custom-components-theme($theme) {
+    @include styles-reset-theme($theme);
+}
+
+.default-theme {
+    @include angular-material-theme($default-theme);
+    @include custom-components-theme($default-theme);
+}
+
+.light-theme {
+    @include angular-material-theme($light-theme);
+    @include custom-components-theme($light-theme);
+}
+
+.dark-theme {
+    @include angular-material-theme($dark-theme);
+    @include custom-components-theme($dark-theme);
+}
+
+.nature-theme {
+    @include angular-material-theme($nature-theme);
+    @include custom-components-theme($nature-theme);
+}
+
+/*
+Getting a color palette:
+    background-color : mat-color($primary, default);
+
+Color palettes:
+    * primary
+        - default
+        - lighter
+        - darker
+    * accent
+        - default
+        - lighter
+        - darker
+    * warn
+        - default
+        - lighter
+        - darker
+    * foreground
+        - base
+        - divider
+        - dividers
+        - disabled
+        - disabled-button
+        - disabled-text
+        - hint-text
+        - secondary-text
+        - icon
+        - icons
+        - text
+        - slider-off
+        - slider-off-active
+    * background
+        - status-bar
+        - app-bar
+        - background
+        - hover
+        - card
+        - dialog
+        - disabled-button
+        - raised-button
+        - focused-button
+        - selected-button
+        - selected-disabled-button
+        - disabled-button-toggle
+*/
+
+/*
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+// Available color palettes: https://material.io/design/color/
+
+// Default Light Theme
+$light-primary: mat-palette($mat-blue, 800);
+$light-accent:  mat-palette($mat-teal);
+$light-warn:    mat-palette($mat-red);
+$light-theme: mat-light-theme($light-primary, $light-accent, $light-warn);
+
+$light-foreground-palette: map-get($light-theme, foreground);
+$light-background-palette: map-get($light-theme, background);
+
+.light-colors{
+    background-color : mat-color($light-primary, default);
+    color: mat-color($light-foreground-palette, text);
+}
+
+.light-theme {
+    @include angular-material-theme($light-theme);
+}
+
+// Default Dark Theme
+$dark-primary: mat-palette($mat-deep-purple);
+$dark-accent:  mat-palette($mat-teal, A200, A100, A400);
+$dark-warn:    mat-palette($mat-deep-orange);
+$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+$dark-foreground-palette: map-get($dark-theme, foreground);
+$dark-background-palette: map-get($dark-theme, background);
+
+.dark-colors{
+    background-color : mat-color($dark-primary, default);
+    color: mat-color($dark-foreground-palette, text);
+}
+
+@include angular-material-theme($dark-theme);
+ */

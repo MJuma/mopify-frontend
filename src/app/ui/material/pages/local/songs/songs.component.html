@@ -1,0 +1,21 @@
+<div class="music-browser">
+    <mat-card>
+        <mat-card-title>Artists</mat-card-title>
+        <mat-nav-list dense>
+            <a mat-list-item *ngFor="let artist of (artists$ | async)" (click)="getAlbums(artist.uri)">{{artist.name}}</a>
+        </mat-nav-list>
+    </mat-card>
+    <mat-card>
+        <mat-card-title>Albums</mat-card-title>
+        <mat-nav-list dense>
+            <a mat-list-item *ngFor="let album of (albums$ | async)" (click)="getTracks(album.uri)">{{album.name}}</a>
+        </mat-nav-list>
+    </mat-card>
+</div>
+
+<app-tracks-table
+    [tracks]="(tracks$ | async)"
+    (queueNow)="queueNow($event)"
+    (queueNext)="queueNext($event)"
+    (queueLast)="queueLast($event)">
+</app-tracks-table>

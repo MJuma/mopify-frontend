@@ -1,0 +1,13 @@
+.mat-list-base[dense] {
+    padding-top: 0;
+}
+
+mat-nav-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: space-between;
+    height: 100%;
+
+    // background-color: mat-color($dark-background-palette, app-bar);
+}

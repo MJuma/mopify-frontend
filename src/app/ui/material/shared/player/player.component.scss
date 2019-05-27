@@ -1,14 +1,14 @@
 mat-toolbar {
-    position: fixed;
-    bottom: 0;
-    height: 100px;
-    padding: 12px 24px 0 24px;
-
     display: flex;
     flex-direction: column;
+    padding: 12px 24px 0 24px;
 
     mat-icon {
         cursor: pointer;
+    }
+
+    mat-toolbar-row {
+        height: initial;
     }
 
     .controls {
