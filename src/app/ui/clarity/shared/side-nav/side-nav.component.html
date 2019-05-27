@@ -7,10 +7,11 @@
         <clr-icon clrVerticalNavIcon shape="headphones"></clr-icon>
         Now Playing
     </a>
-    <clr-vertical-nav-group *ngIf="(localDirectoryExists$ | async)">
+    <clr-vertical-nav-group *ngIf="(localDirectoryExists$ | async)" routerLinkActive="active">
+        <a routerLink="/local" hidden aria-hidden="true"></a>
         <clr-icon shape="library" clrVerticalNavIcon></clr-icon>
         Local
-        <clr-vertical-nav-group-children>
+        <clr-vertical-nav-group-children *clrIfExpanded="true">
             <a clrVerticalNavLink routerLink="/local/songs" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                 <clr-icon shape="music-note"></clr-icon>
                 Songs
@@ -25,10 +26,11 @@
             </a>
         </clr-vertical-nav-group-children>
     </clr-vertical-nav-group>
-    <clr-vertical-nav-group *ngIf="(spotifyWebDirectoryExists$ | async)">
+    <clr-vertical-nav-group *ngIf="(spotifyWebDirectoryExists$ | async)" routerLinkActive="active">
+        <a routerLink="/spotify" hidden aria-hidden="true"></a>
         <img clrVerticalNavIcon src="assets/spotify.svg">
         Spotify
-        <clr-vertical-nav-group-children>
+        <clr-vertical-nav-group-children *clrIfExpanded="true">
             <a clrVerticalNavLink routerLink="/spotify/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                 <clr-icon shape="dashboard"></clr-icon>
                 Home
