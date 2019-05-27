@@ -31,27 +31,28 @@
         <img clrVerticalNavIcon src="assets/spotify.svg">
         Spotify
         <clr-vertical-nav-group-children *clrIfExpanded="true">
-            <a clrVerticalNavLink routerLink="/spotify/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a clrVerticalNavLink routerLink="/spotify/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                 <clr-icon shape="dashboard"></clr-icon>
-                Home
+                Dashboard
             </a>
-            <a clrVerticalNavLink routerLink="/spotify/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a clrVerticalNavLink routerLink="/spotify/browse" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                 <clr-icon shape="folder"></clr-icon>
                 Browse
             </a>
-            <a clrVerticalNavLink routerLink="/spotify/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a clrVerticalNavLink routerLink="/spotify/playlists" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                 <clr-icon shape="number-list"></clr-icon>
                 Playlists
             </a>
-            <a clrVerticalNavLink routerLink="/spotify/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a clrVerticalNavLink routerLink="/spotify/discover" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                 <clr-icon shape="radar"></clr-icon>
                 Discover
             </a>
-            <a clrVerticalNavLink routerLink="/spotify/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a clrVerticalNavLink routerLink="/spotify/radio" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                <clr-icon shape="network-globe"></clr-icon>
                 Radio
             </a>
-            <a clrVerticalNavLink routerLink="/spotify/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-                <clr-icon shape="grid-chart"></clr-icon>
+            <a clrVerticalNavLink routerLink="/spotify/stations" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                <clr-icon shape="users"></clr-icon>
                 Stations
             </a>
         </clr-vertical-nav-group-children>

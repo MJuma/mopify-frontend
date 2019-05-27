@@ -87,7 +87,7 @@ export function libraryReducer(state: LibraryState = initialLibraryState, action
                         (accumulatedImageUris: ImageUris, currentUri: string) => action.payload[currentUri].length > 0
                             ? {
                                 ...accumulatedImageUris,
-                                [currentUri]: action.payload[currentUri].sort((imageA, imageB) =>
+                                [currentUri]: [...action.payload[currentUri]].sort((imageA, imageB) =>
                                     (imageA.height * imageA.width) < (imageB.height * imageB.width) ? 1 : -1)[0].uri
                             }
                             : accumulatedImageUris,
