@@ -1,0 +1,8 @@
+<div *ngFor="let artist of artists" class="card clickable">
+    <div class="card-img">
+        <img [src]="imageUris[artist.uri]">
+    </div>
+    <div class="card-header">
+        {{artist.name}}
+    </div>
+</div>

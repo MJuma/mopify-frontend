@@ -10,7 +10,8 @@
                 </div>
                 <app-player></app-player>
             </article>
-            <app-music-nav></app-music-nav>
+            <app-music-nav *ngIf="(currentRoute$ | async) !== '/queue'">
+            </app-music-nav>
         </section>
         <clr-vertical-nav class="nav-trigger--bottom" [clrVerticalNavCollapsible]="true">
             <app-side-nav></app-side-nav>

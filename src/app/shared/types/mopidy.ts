@@ -1,5 +1,8 @@
 import { EventEmitter } from 'events';
 
+export type Lit = string | number | boolean | undefined | null | void | {};
+export const tuple = <T extends Lit[]>(...args: T) => args;
+
 export type Type = 'artist' | 'album' | 'track' | 'playlist' | 'directory';
 export enum Types {
     ARTIST = 'artist',
@@ -9,19 +12,23 @@ export enum Types {
     DIRECTORY = 'directory',
 }
 export type Field = 'track' | 'artist' | 'albumartist' | 'album' | 'composer' | 'performer' | 'date' | 'genre';
-export type SearchField =
-    'uri'
-    | 'track_name'
-    | 'album'
-    | 'artist'
-    | 'albumartist'
-    | 'composer'
-    | 'performer'
-    | 'track_no'
-    | 'genre'
-    | 'date'
-    | 'comment'
-    | 'any';
+
+export const SEARCH_FIELDS = tuple(
+    'any',
+    'track_name',
+    'artist',
+    'album',
+    'albumartist',
+    'composer',
+    'performer',
+    'track_no',
+    'genre',
+    'date',
+    'comment',
+    'uri',
+);
+type SearchFieldTuple = typeof SEARCH_FIELDS;
+export type SearchField = SearchFieldTuple[number];
 export type PlaybackState = 'stopped' | 'playing' | 'paused';
 export enum PlaybackStates {
     STOPPED = 'stopped',

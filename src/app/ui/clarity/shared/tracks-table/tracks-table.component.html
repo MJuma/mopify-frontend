@@ -42,5 +42,12 @@
         <clr-dg-cell class="small-column">{{track.date}}</clr-dg-cell>
     </clr-dg-row>
 
-    <clr-dg-footer>{{tracks.length}} songs</clr-dg-footer>
+    <clr-dg-footer>
+        <clr-dg-pagination *ngIf="paginate; else noPagination" #pagination [clrDgPageSize]="20">
+            <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Songs per page</clr-dg-page-size>
+            {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+            of {{tracks.length}} {{footerMessage}} songs
+        </clr-dg-pagination>
+        <ng-template #noPagination>{{tracks.length}} {{footerMessage}} songs</ng-template>
+    </clr-dg-footer>
 </clr-datagrid>

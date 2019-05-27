@@ -7,7 +7,7 @@ import { NotFoundComponent } from './not-found.component';
         NotFoundComponent,
     ],
     imports: [
-        CommonModule
+        CommonModule,
     ]
 })
 export class NotFoundModule {

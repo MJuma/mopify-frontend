@@ -46,10 +46,10 @@
 
 <clr-tabs *ngIf="(currentTrack$ | async)">
     <clr-tab>
-        <button clrTabLink id="link1">Details</button>
-        <clr-tab-content id="content1" *clrIfActive>
+        <button clrTabLink>Details</button>
+        <clr-tab-content *clrIfActive>
             <div class="card">
-                <div class="card-img">
+                <div *ngIf="(images$ | async)[(currentTrack$ | async).uri]" class="card-img">
                     <img [src]="(images$ | async)[(currentTrack$ | async).uri]">
                 </div>
                 <div class="card-block">

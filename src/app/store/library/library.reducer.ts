@@ -17,6 +17,7 @@ export const initialLibraryState: LibraryState = {
     currentDirectoryUri: '',
     previousDirectoryUris: [],
     images: {},
+    searchResults: undefined,
 };
 
 export function libraryReducer(state: LibraryState = initialLibraryState, action: LibraryActionsUnion): LibraryState {
@@ -72,20 +73,26 @@ export function libraryReducer(state: LibraryState = initialLibraryState, action
                 ...state,
                 childDirectories: action.payload,
             };
+        case LibraryActionTypes.SEARCH_SUCCESS:
+            return {
+                ...state,
+                searchResults: action.payload,
+            };
         case LibraryActionTypes.GET_IMAGES_SUCCESS:
-            const imageUris: ImageUris = Object.keys(action.payload).reduce(
-                (acc: ImageUris, curr: string) => ({
-                    ...acc,
-                    [curr]: [...action.payload[curr]].sort((imageA, imageB) =>
-                        (imageA.height * imageA.width) < (imageB.height * imageB.width) ? 1 : -1)[0].uri,
-                }),
-                {},
-            );
             return {
                 ...state,
                 images: {
                     ...state.images,
-                    ...imageUris,
+                    ...Object.keys(action.payload).reduce(
+                        (accumulatedImageUris: ImageUris, currentUri: string) => action.payload[currentUri].length > 0
+                            ? {
+                                ...accumulatedImageUris,
+                                [currentUri]: action.payload[currentUri].sort((imageA, imageB) =>
+                                    (imageA.height * imageA.width) < (imageB.height * imageB.width) ? 1 : -1)[0].uri
+                            }
+                            : accumulatedImageUris,
+                        {},
+                    ),
                 }
             };
         default:
@@ -110,3 +117,4 @@ export const selectSpotifyWebDirectoryExists = createSelector(
     (state: LibraryState) => !!state.rootDirectories.find((directory: Ref) => directory.uri === state.spotifyWebDirectoryUri),
 );
 export const selectImages = createSelector(selectLibraryState, (state: LibraryState) => state.images);
+export const selectSearchResults = createSelector(selectLibraryState, (state: LibraryState) => state.searchResults);

@@ -1,0 +1,61 @@
+<form clrForm clrLayout="vertical" [formGroup]="searchForm" (ngSubmit)="search(searchForm.value)">
+    <div class="card">
+        <div class="card-header">
+            Search
+        </div>
+        <div class="card-block">
+            <clr-select-container class="backend">
+                <label>Backend</label>
+                <select clrSelect name="options" formControlName="backend">
+                    <option value="">All</option>
+                    <option *ngFor="let directory of rootDirectories" [value]="directory.uri">{{directory.name}}</option>
+                </select>
+            </clr-select-container>
+
+            <table>
+                <tbody formArrayName="queries">
+                <tr *ngFor="let queryRow of searchQueriesForm.controls; let i = index" [formGroupName]="i">
+                    <td>
+                        <clr-select-container>
+                            <label>Field</label>
+                            <select clrSelect formControlName="field">
+                                <option *ngFor="let field of searchFields" [value]="field">{{field | sentenceCase}}</option>
+                            </select>
+                        </clr-select-container>
+                    </td>
+
+                    <td>
+                        <clr-input-container>
+                            <label>Search term</label>
+                            <input clrInput type="text" formControlName="query" />
+                        </clr-input-container>
+                    </td>
+
+                    <td *ngIf="i > 0">
+                        <button class="btn btn-sm btn-link" type="button" (click)="removeSearchQueryRow(i)">
+                            <clr-icon shape="minus-circle"></clr-icon>
+                            Remove query
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <button class="btn btn-sm btn-link" type="button" (click)="createSearchQueryRow()">
+                    <clr-icon shape="plus-circle"></clr-icon>
+                    Add query
+                </button>
+                </tfoot>
+            </table>
+
+            <clr-checkbox-wrapper>
+                <input type="checkbox" clrCheckbox value="option1" name="options" formControlName="exact" />
+                <label>Exact</label>
+            </clr-checkbox-wrapper>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-primary" type="submit" [disabled]="searchForm.invalid">
+                Search
+            </button>
+        </div>
+    </div>
+</form>

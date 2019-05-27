@@ -1,0 +1,15 @@
+<div class="album-art">
+    <img [src]="imageUri">
+</div>
+<section>
+    <div class="card">
+        <div class="card-block">
+            <h4 class="card-title">Track: {{currentTrack.name}}</h4>
+            <p class="card-text">Artist: {{currentTrack.artists[0].name}}</p>
+            <p class="card-text">Album: {{currentTrack.album.name}}</p>
+            <p class="card-text">Genre: {{currentTrack.genre}}</p>
+            <p class="card-text">Year: {{currentTrack.date}}</p>
+            <p class="card-text">Track Length: {{currentTrack.length | songLength}}</p>
+        </div>
+    </div>
+</section>

@@ -3,6 +3,10 @@
         <clr-icon clrVerticalNavIcon shape="home"></clr-icon>
         Home
     </a>
+    <a clrVerticalNavLink routerLink="/queue" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <clr-icon clrVerticalNavIcon shape="headphones"></clr-icon>
+        Now Playing
+    </a>
     <clr-vertical-nav-group *ngIf="(localDirectoryExists$ | async)">
         <clr-icon shape="library" clrVerticalNavIcon></clr-icon>
         Local
@@ -25,38 +29,38 @@
         <img clrVerticalNavIcon src="assets/spotify.svg">
         Spotify
         <clr-vertical-nav-group-children>
-            <a clrVerticalNavLink routerLink="/">
+            <a clrVerticalNavLink routerLink="/spotify/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                 <clr-icon shape="dashboard"></clr-icon>
                 Home
             </a>
-            <a clrVerticalNavLink routerLink="/">
+            <a clrVerticalNavLink routerLink="/spotify/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                 <clr-icon shape="folder"></clr-icon>
                 Browse
             </a>
-            <a clrVerticalNavLink routerLink="/">
+            <a clrVerticalNavLink routerLink="/spotify/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                 <clr-icon shape="number-list"></clr-icon>
                 Playlists
             </a>
-            <a clrVerticalNavLink routerLink="/">
+            <a clrVerticalNavLink routerLink="/spotify/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                 <clr-icon shape="radar"></clr-icon>
                 Discover
             </a>
-            <a clrVerticalNavLink routerLink="/">
+            <a clrVerticalNavLink routerLink="/spotify/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                 Radio
             </a>
-            <a clrVerticalNavLink routerLink="/">
+            <a clrVerticalNavLink routerLink="/spotify/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                 <clr-icon shape="grid-chart"></clr-icon>
                 Stations
             </a>
         </clr-vertical-nav-group-children>
     </clr-vertical-nav-group>
-    <a clrVerticalNavLink routerLink="/search">
+    <a clrVerticalNavLink routerLink="/search" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <clr-icon clrVerticalNavIcon shape="search"></clr-icon>
         Search
     </a>
 </section>
 <section>
-    <a clrVerticalNavLink routerLink="/settings">
+    <a clrVerticalNavLink routerLink="/settings" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <clr-icon clrVerticalNavIcon shape="cog"></clr-icon>
         Settings
     </a>

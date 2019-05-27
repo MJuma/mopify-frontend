@@ -1,0 +1,29 @@
+:host {
+    display: flex;
+    flex-direction: row;
+
+    .album-art {
+
+        img {
+            width: 300px;
+            height: auto;
+        }
+    }
+
+    section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex: 1 1;
+
+        .card {
+            margin-top: 0;
+            height: 100%;
+
+            .card-text {
+                margin-bottom: 0;
+            }
+        }
+    }
+}

@@ -3,7 +3,8 @@ import {
     MopidyLibraryBrowseRefreshParams,
     MopidyLibraryGetImagesParams,
     MopidyLibraryGetImagesResponse,
-    Ref,
+    MopidyLibrarySearchParams,
+    Ref, SearchResult,
     Track,
 } from '../../shared/types/mopidy';
 
@@ -99,6 +100,18 @@ export class BrowseSuccess implements Action {
     constructor(public payload: Ref[]) {}
 }
 
+export class Search implements Action {
+    readonly type = LibraryActionTypes.SEARCH;
+
+    constructor(public payload: MopidyLibrarySearchParams) {}
+}
+
+export class SearchSuccess implements Action {
+    readonly type = LibraryActionTypes.SEARCH_SUCCESS;
+
+    constructor(public payload: SearchResult) {}
+}
+
 export class GetImages  implements Action {
     readonly type = LibraryActionTypes.GET_IMAGES;
 
@@ -122,7 +135,9 @@ export type LibraryActionsUnion =
     | GetLocalTracksSuccess
     | BrowseLocal
     | Browse
-    | BrowseSuccess
     | BrowseBack
+    | BrowseSuccess
+    | Search
+    | SearchSuccess
     | GetImages
     | GetImagesSuccess;

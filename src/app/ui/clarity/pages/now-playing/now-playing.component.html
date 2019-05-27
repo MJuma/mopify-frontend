@@ -1,0 +1,17 @@
+<main>
+    <section>
+        <app-now-playing-details
+            [currentTrack]="(currentTrack$ | async)"
+            [imageUri]="(images$ | async)[(currentTrack$ | async).uri]">
+        </app-now-playing-details>
+    </section>
+
+    <section>
+        <app-now-playing-table
+            [tlTracks]="(tlTracks$ | async)"
+            [index]="(index$ | async)"
+            (playTrack)="playTrack($event)"
+            (removeTracks)="removeTracks($event)">
+        </app-now-playing-table>
+    </section>
+</main>

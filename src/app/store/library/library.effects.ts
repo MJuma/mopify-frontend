@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { forkJoin, from, Observable } from 'rxjs';
-import { concatMap, map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { concatMap, debounceTime, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { MopidyService } from '../../shared/services/mopidy.service';
 import {
     MopidyLibraryBrowseRefreshParams,
@@ -87,6 +87,32 @@ export class LibraryEffects {
         map(({ payload }: LibraryActions.BrowseBack) => payload),
         switchMap((uri: string) => from(this.mopidy.library().browse({ uri }))),
         map((rootDirectories: Ref[]) => new LibraryActions.BrowseSuccess(rootDirectories)),
+    );
+
+    @Effect()
+    readonly search$ = this.actions$.pipe(
+        ofType(LibraryActionTypes.SEARCH),
+        debounceTime(250),
+        map(({ payload }: LibraryActions.Search) => payload),
+        switchMap((params: MopidyLibrarySearchParams) => from(this.mopidy.library().search(params))),
+        map((searchResults: SearchResult[]) => searchResults.reduce((final: SearchResult, current: SearchResult) => ({
+            uri: final.uri,
+            artists: current.artists ? [...final.artists, ...current.artists] : final.artists,
+            albums: current.albums ? [...final.albums, ...current.albums] : final.albums,
+            tracks: current.tracks ? [...final.tracks, ...current.tracks] : final.tracks,
+        }), {artists: [], albums: [], tracks: [], uri: ''} as SearchResult)),
+        map((searchResults: SearchResult) => new LibraryActions.SearchSuccess(searchResults)),
+    );
+
+    @Effect()
+    readonly searchSuccess$ = this.actions$.pipe(
+        ofType(LibraryActionTypes.SEARCH_SUCCESS),
+        map(({ payload }: LibraryActions.SearchSuccess) => payload),
+        map((searchResult: SearchResult) => [
+            ...searchResult.artists.map(artist => artist.uri),
+            ...searchResult.albums.map(album => album.uri)
+        ]),
+        map((uris: string[]) => new LibraryActions.GetImages({uris})),
     );
 
     @Effect()

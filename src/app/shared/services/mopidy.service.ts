@@ -9,6 +9,7 @@ import * as MopidyActions from '../../store/mopidy/mopidy.actions';
 import { MopidyState } from '../../store/mopidy/mopidy.state';
 import { IMopidy, Library, Mixer, Playback, Tracklist } from '../types/mopidy';
 import * as fromMopidyReducer from '../../store/mopidy/mopidy.reducer';
+import { toSentenceCase } from '../utils/functions';
 
 @Injectable({
     providedIn: 'root'
@@ -97,31 +98,8 @@ export class MopidyService {
     private eventLogger(eventName: string, eventData: object): void {
         const eventNameParts = eventName.split(':');
         this.store.dispatch({
-            type: `[Mopidy Event] ${this.toSentenceCase(eventNameParts[0])}: ${this.toSentenceCase(eventNameParts[1])}`,
+            type: `[Mopidy Event] ${toSentenceCase(eventNameParts[0])}: ${toSentenceCase(eventNameParts[1])}`,
             payload: eventData,
         });
-    }
-
-    private toSentenceCase(value: string): string {
-        if (!value || value === '') {
-            return value;
-        }
-
-        value = value.trim();
-        let newText = '';
-        for (let i = 0; i < value.length; i++) {
-            if (/[A-Z]/.test(value[i])
-                && i !== 0
-                && /[a-z]/.test(value[i - 1])) {
-                newText += ' ';
-            }
-            if (i === 0 && /[a-z]/.test(value[i])) {
-                newText += value[i].toUpperCase();
-            } else {
-                newText += value[i];
-            }
-        }
-
-        return newText;
     }
 }

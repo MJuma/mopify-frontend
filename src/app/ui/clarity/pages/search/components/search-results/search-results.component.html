@@ -1,0 +1,29 @@
+<clr-tabs *ngIf="searchResults">
+    <clr-tab *ngIf="searchResults.artists">
+        <button clrTabLink>Artists</button>
+        <clr-tab-content *clrIfActive>
+            <section>
+                <app-artists-results
+                    [artists]="searchResults.artists"
+                    [imageUris]="imageUris">
+                </app-artists-results>
+            </section>
+        </clr-tab-content>
+    </clr-tab>
+    <clr-tab *ngIf="searchResults.albums">
+        <button clrTabLink>Albums</button>
+        <clr-tab-content *clrIfActive>
+            ...
+        </clr-tab-content>
+    </clr-tab>
+    <clr-tab *ngIf="searchResults.tracks">
+        <button clrTabLink>Tracks</button>
+        <clr-tab-content *clrIfActive>
+            <app-tracks-table
+                [tracks]="searchResults.tracks"
+                [footerMessage]="searchResults.uri | rootUri"
+                [paginate]="true">
+            </app-tracks-table>
+        </clr-tab-content>
+    </clr-tab>
+</clr-tabs>

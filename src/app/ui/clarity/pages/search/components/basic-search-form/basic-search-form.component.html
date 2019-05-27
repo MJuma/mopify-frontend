@@ -1,0 +1,13 @@
+<form clrForm clrLayout="vertical">
+    <div class="card">
+        <div class="card-header">
+            Search
+        </div>
+        <div class="card-block">
+            <clr-input-container>
+                <label>Search term</label>
+                <input #searchTerm clrInput type="text" (keyup)="search(searchTerm.value)"/>
+            </clr-input-container>
+        </div>
+    </div>
+</form>

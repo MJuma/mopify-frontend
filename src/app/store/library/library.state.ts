@@ -1,4 +1,4 @@
-import { Ref, Track } from '../../shared/types/mopidy';
+import { Ref, SearchResult, Track } from '../../shared/types/mopidy';
 
 export interface LibraryState {
     localDirectoryUri: string;
@@ -9,6 +9,7 @@ export interface LibraryState {
     currentDirectoryUri: string;
     previousDirectoryUris: string[];
     images: ImageUris;
+    searchResults: SearchResult | undefined;
 }
 
 export interface ImageUris {

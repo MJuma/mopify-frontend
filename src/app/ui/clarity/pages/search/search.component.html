@@ -1,0 +1,30 @@
+<main>
+    <section>
+        <clr-tabs>
+            <clr-tab>
+                <button clrTabLink>Basic</button>
+                <clr-tab-content *clrIfActive>
+                    <app-basic-search-form
+                        (submitSearch)="search($event)">
+                    </app-basic-search-form>
+                </clr-tab-content>
+            </clr-tab>
+            <clr-tab>
+                <button clrTabLink>Advanced</button>
+                <clr-tab-content *clrIfActive>
+                    <app-advanced-search-form
+                        [rootDirectories]="(rootDirectories$ | async)"
+                        (submitSearch)="search($event)">
+                    </app-advanced-search-form>
+                </clr-tab-content>
+            </clr-tab>
+        </clr-tabs>
+    </section>
+
+    <section>
+        <app-search-results
+            [searchResults]="(searchResults$ | async)"
+            [imageUris]="(images$ | async)">
+        </app-search-results>
+    </section>
+</main>
