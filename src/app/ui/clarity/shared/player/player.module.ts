@@ -4,9 +4,9 @@ import { ClarityModule } from '@clr/angular';
 import { EffectsModule } from '@ngrx/effects';
 import { CommonPipesModule } from '../../../../shared/pipes/common-pipes.module';
 import { PlayerEffects } from '../../../../store/player/player.effects';
+import { SeekPositionDirective } from './directives/seek-position.directive';
 import { PlayerComponent } from './player.component';
 import { SolidHoverDirective } from './directives/solid-hover.directive';
-import { SeekPositionDirective } from './directives/seek-position.directive';
 
 @NgModule({
     declarations: [

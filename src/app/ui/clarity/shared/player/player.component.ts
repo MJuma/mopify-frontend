@@ -70,7 +70,7 @@ export class PlayerComponent implements OnInit {
     }
 
     public setVolume(volume: string): void {
-        this.store.dispatch(new MixerActions.SetVolume({volume: +volume}));
+        this.store.dispatch(new MixerActions.SetVolume({ volume: +volume }));
     }
 
     public toggleMute(): void {
