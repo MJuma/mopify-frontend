@@ -6,7 +6,6 @@ import { PlaylistsModule } from './playlists/playlists.module';
 import { SongsModule } from './songs/songs.module';
 
 @NgModule({
-    declarations: [],
     imports: [
         BrowseModule,
         CommonModule,

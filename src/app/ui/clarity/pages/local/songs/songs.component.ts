@@ -18,7 +18,8 @@ export class SongsComponent implements OnInit {
     public albums$: Observable<Ref[]>;
     public tracks$: Observable<Track[]>;
 
-    constructor(private store: Store<ApplicationState>) {}
+    constructor(private store: Store<ApplicationState>) {
+    }
 
     public ngOnInit(): void {
         this.artists$ = this.store.select(fromLibraryReducer.selectArtists);

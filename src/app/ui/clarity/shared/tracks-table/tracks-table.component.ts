@@ -2,10 +2,10 @@ import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from 
 import { Track } from '../../../../shared/types/mopidy';
 
 @Component({
-  selector: 'app-tracks-table',
-  templateUrl: './tracks-table.component.html',
-  styleUrls: ['./tracks-table.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-tracks-table',
+    templateUrl: './tracks-table.component.html',
+    styleUrls: ['./tracks-table.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TracksTableComponent {
     selectedTracks: Track[] = [];
