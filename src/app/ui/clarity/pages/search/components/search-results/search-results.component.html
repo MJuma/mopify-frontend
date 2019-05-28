@@ -19,11 +19,7 @@
     <clr-tab *ngIf="searchResults.tracks">
         <button clrTabLink>Tracks</button>
         <clr-tab-content *clrIfActive>
-            <app-tracks-table
-                [tracks]="searchResults.tracks"
-                [footerMessage]="searchResults.uri | rootUri"
-                [paginate]="true">
-            </app-tracks-table>
+            Tracks go here
         </clr-tab-content>
     </clr-tab>
 </clr-tabs>

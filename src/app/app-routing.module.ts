@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
     {
         path: '',
-        loadChildren: './ui/material/material.module#MaterialModule',
+        loadChildren: './ui/clarity/clarity-ui.module#ClarityUiModule',
     },
 ];
 

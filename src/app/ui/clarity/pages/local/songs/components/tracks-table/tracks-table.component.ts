@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { Track } from '../../../../shared/types/mopidy';
+import { Track } from '../../../../../../../shared/types/mopidy';
 
 @Component({
     selector: 'app-tracks-table',
