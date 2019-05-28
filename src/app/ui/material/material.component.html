@@ -1,4 +1,4 @@
-<main class="mat-app-background">
+<main class="mat-app-background" [class]="(theme$ | async)">
     <app-header></app-header>
     <section>
         <div class="content"><router-outlet></router-outlet></div>

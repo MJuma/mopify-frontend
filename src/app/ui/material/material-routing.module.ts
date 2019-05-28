@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MaterialComponent } from './material.component';
+import { SettingsComponent } from './pages/settings/settings.component';
+import { SettingsModule } from './pages/settings/settings.module';
 
 const routes: Routes = [
     {
@@ -15,10 +17,10 @@ const routes: Routes = [
                 path: 'local',
                 loadChildren: './pages/local/local.module#LocalModule',
             },
-            /*{
+            {
                 path: 'settings',
-                loadChildren: './pages/settings/settings.module#SettingsModule',
-            },*/
+                component: SettingsComponent,
+            },
         ],
     }
 ];
@@ -26,6 +28,7 @@ const routes: Routes = [
 @NgModule({
     imports: [
         RouterModule.forChild(routes),
+        SettingsModule,
     ],
     exports: [
         RouterModule,

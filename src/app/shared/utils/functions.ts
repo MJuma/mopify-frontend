@@ -4,6 +4,7 @@ export const toSentenceCase = (value: string): string  => {
     }
 
     value = value.trim();
+    value = value.replace('-', ' ');
     let newText = '';
     for (let i = 0; i < value.length; i++) {
         if (/[A-Z]/.test(value[i])

@@ -1,2 +1,90 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/theming';
 
+@include mat-core();
+
+@import 'styles/styles-variables';
+@import 'styles/styles-reset.theme';
+@import 'themes/default-theme';
+@import 'themes/light-theme';
+@import 'themes/dark-theme';
+@import 'themes/nature-theme';
+@import 'themes/music-theme';
+
+@mixin custom-components-theme($theme) {
+    @include styles-reset-theme($theme);
+}
+
+@include angular-material-theme($default-theme);
+@include custom-components-theme($default-theme);
+
+.default-theme {
+    @include angular-material-theme($default-theme);
+    @include custom-components-theme($default-theme);
+}
+
+.light-theme {
+    @include angular-material-theme($light-theme);
+    @include custom-components-theme($light-theme);
+}
+
+.dark-theme {
+    @include angular-material-theme($dark-theme);
+    @include custom-components-theme($dark-theme);
+}
+
+.nature-theme {
+    @include angular-material-theme($nature-theme);
+    @include custom-components-theme($nature-theme);
+}
+
+.music-theme {
+    @include angular-material-theme($music-theme);
+    @include custom-components-theme($music-theme);
+}
+
+/*
+Getting a color palette:
+    background-color : mat-color($primary, default);
+
+Color palettes:
+    * primary
+        - default
+        - lighter
+        - darker
+    * accent
+        - default
+        - lighter
+        - darker
+    * warn
+        - default
+        - lighter
+        - darker
+    * foreground
+        - base
+        - divider
+        - dividers
+        - disabled
+        - disabled-button
+        - disabled-text
+        - hint-text
+        - secondary-text
+        - icon
+        - icons
+        - text
+        - slider-off
+        - slider-off-active
+    * background
+        - status-bar
+        - app-bar
+        - background
+        - hover
+        - card
+        - dialog
+        - disabled-button
+        - raised-button
+        - focused-button
+        - selected-button
+        - selected-disabled-button
+        - disabled-button-toggle
+*/
