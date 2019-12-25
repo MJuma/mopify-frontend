@@ -1,1 +1,1 @@
-# Mopidy Frontend
+# Mopidy Frontend Client
