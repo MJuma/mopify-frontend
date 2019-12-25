@@ -7,6 +7,14 @@
         <clr-icon clrVerticalNavIcon shape="headphones"></clr-icon>
         Now Playing
     </a>
+    <a clrVerticalNavLink routerLink="/history" routerLinkActive="active" class="disabled" [routerLinkActiveOptions]="{ exact: true }">
+        <clr-icon clrVerticalNavIcon shape="history"></clr-icon>
+        History
+    </a>
+    <a clrVerticalNavLink routerLink="/search" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <clr-icon clrVerticalNavIcon shape="search"></clr-icon>
+        Search
+    </a>
     <clr-vertical-nav-group *ngIf="(localDirectoryExists$ | async)" routerLinkActive="active">
         <a routerLink="/local" hidden aria-hidden="true"></a>
         <clr-icon shape="library" clrVerticalNavIcon></clr-icon>
@@ -57,10 +65,6 @@
             </a>
         </clr-vertical-nav-group-children>
     </clr-vertical-nav-group>
-    <a clrVerticalNavLink routerLink="/search" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <clr-icon clrVerticalNavIcon shape="search"></clr-icon>
-        Search
-    </a>
 </section>
 <section>
     <a clrVerticalNavLink routerLink="/settings" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">

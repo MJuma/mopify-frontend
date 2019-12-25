@@ -7,6 +7,7 @@ import { ApplicationState } from '../application/application.state';
 export const initialLibraryState: LibraryState = {
     localDirectoryUri: 'local:directory',
     spotifyWebDirectoryUri: 'spotifyweb:directory',
+    localAlbumArtistsDirectoryUri: 'local:directory?type=artist&role=albumartist',
     rootDirectories: [],
     childDirectories: [],
     songs: {

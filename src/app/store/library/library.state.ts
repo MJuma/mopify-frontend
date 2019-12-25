@@ -3,6 +3,7 @@ import { Ref, SearchResult, Track } from '../../shared/types/mopidy';
 export interface LibraryState {
     localDirectoryUri: string;
     spotifyWebDirectoryUri: string;
+    localAlbumArtistsDirectoryUri: string;
     rootDirectories: Ref[];
     childDirectories: Ref[];
     songs: SongsState;

@@ -14,7 +14,7 @@
         </div>
         <div class="btn-group">
             <clr-dropdown>
-                <button type="button" class="btn btn-sm btn-secondary" clrDropdownTrigger>
+                <button type="button" class="btn btn-sm btn-secondary" disabled clrDropdownTrigger>
                     Add to playlist
                     <clr-icon shape="caret down"></clr-icon>
                 </button>
@@ -28,16 +28,18 @@
     <clr-dg-column class="small-column">Track #</clr-dg-column>
     <clr-dg-column>Song</clr-dg-column>
     <clr-dg-column class="small-column">Length</clr-dg-column>
-    <clr-dg-column>Genre</clr-dg-column>
+    <clr-dg-column>Artist</clr-dg-column>
+    <clr-dg-column>Album</clr-dg-column>
     <clr-dg-column class="small-column">Year</clr-dg-column>
 
     <clr-dg-placeholder>No albums selected</clr-dg-placeholder>
 
-    <clr-dg-row *ngFor="let tlTrack of tlTracks" [clrDgItem]="tlTrack">
+    <clr-dg-row *ngFor="let tlTrack of tlTracks; index as i" [clrDgItem]="tlTrack" [ngClass]="{'current-track': index === i}">
         <clr-dg-cell class="small-column">{{tlTrack.track.track_no}}</clr-dg-cell>
         <clr-dg-cell>{{tlTrack.track.name}}</clr-dg-cell>
         <clr-dg-cell class="small-column">{{tlTrack.track.length | songLength}}</clr-dg-cell>
-        <clr-dg-cell>{{tlTrack.track.genre}}</clr-dg-cell>
+        <clr-dg-cell>{{tlTrack.track.artists[0].name}}</clr-dg-cell>
+        <clr-dg-cell>{{tlTrack.track.album.name}}</clr-dg-cell>
         <clr-dg-cell class="small-column">{{tlTrack.track.date}}</clr-dg-cell>
     </clr-dg-row>
 

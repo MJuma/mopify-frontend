@@ -1,0 +1,11 @@
+@import '~@angular/material/theming';
+
+@mixin table-theme($theme) {
+    $primary: map-get($theme, pirmary);
+
+    .row-highlight {
+        &:hover {
+            background-color: mat-color($primary);
+        }
+    }
+}

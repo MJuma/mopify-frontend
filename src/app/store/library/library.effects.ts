@@ -32,7 +32,7 @@ export class LibraryEffects {
     readonly getLocalArtists$ = this.actions$.pipe(
         ofType(LibraryActionTypes.GET_LOCAL_ARTISTS),
         withLatestFrom(this.store.select(fromLibraryReducer.selectLibraryState)),
-        map(([, state]: [LibraryActions.BrowseLocal, LibraryState]) => state.localDirectoryUri),
+        map(([, state]: [LibraryActions.BrowseLocal, LibraryState]) => state.localAlbumArtistsDirectoryUri),
         switchMap((uri: string) => from(this.mopidy.library().browse({uri}))),
         map((rootDirectories: Ref[]) => new LibraryActions.GetLocalArtistsSuccess(rootDirectories)),
     );

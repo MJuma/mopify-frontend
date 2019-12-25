@@ -27,6 +27,14 @@
                 <clr-icon shape="folder"></clr-icon>
                 {{directory.name}}
             </td>
+            <td *ngSwitchCase="types.ARTIST" class="left" (click)="browseDirectory.emit(directory.uri)">
+                <clr-icon shape="user"></clr-icon>
+                {{directory.name}}
+            </td>
+            <td *ngSwitchCase="types.ALBUM" class="left" (click)="browseDirectory.emit(directory.uri)">
+                <clr-icon shape="dot-circle"></clr-icon>
+                {{directory.name}}
+            </td>
             <td *ngSwitchCase="types.TRACK" class="left" (click)="playTrack.emit(directory.uri)">
                 <clr-icon shape="music-note"></clr-icon>
                 {{directory.name}}
